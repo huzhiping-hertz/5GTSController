@@ -4,12 +4,17 @@
 #include "gtscmd.h"
 #include "datamanager.h"
 
+#include <QSql>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->txtDeviceCmd->setPlainText(QSysInfo::buildAbi());
+    //ui->txtDeviceCmd->setPlainText(QSysInfo::buildAbi());
 }
 
 MainWindow::~MainWindow()
@@ -29,6 +34,31 @@ void MainWindow::on_btnLinkDevice_clicked()
 
     gtsClient.ConnectDevice(ip,port);
     dataManager.ConnectDevice(ip,port+10);
+
+    //开启数据库，接收优化数据
+    QSqlDatabase database =QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("opt");
+    if(database.open())
+    {
+        QSqlQuery query;
+        query.prepare("select * from optrange");
+        if(query.exec())
+        {
+            while (query.next()) {
+                     this->optObj.freqmin = query.value(0).toReal();
+                     this->optObj.freqmax = query.value(1).toReal();
+                     this->optObj.optmode=query.value(2).toString();
+                     this->optObj.dfvalue=query.value(3).toReal();
+                     this->optObj.dfoffset=query.value(4).toReal();
+                     this->optObj.qualityvalue=query.value(5).toReal();
+                     this->optObj.qualityoffset=query.value(6).toReal();
+                     this->optObj.levelvalue=query.value(7).toReal();
+                     this->optObj.leveloffset=query.value(8).toReal();
+                 }
+        }
+    ui->txtDeviceResponse->setPlainText(optObj.ToString());
+    }
+
 }
 
 void MainWindow::on_device_connected()
@@ -51,6 +81,8 @@ void MainWindow::on_device_response(QString response)
 void MainWindow::on_device_response_data(DFData response)
 {
     ui->txtDeviceResponse->appendPlainText(response.ToString());
+    //数据优化在这里
+    //
 }
 
 

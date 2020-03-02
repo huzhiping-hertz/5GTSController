@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql
 QT += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -29,7 +29,8 @@ SOURCES += \
     dataparser.cpp \
     dfdata.cpp \
     gtscmdfactory.cpp \
-    framefactory.cpp
+    framefactory.cpp \
+    optobj.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +45,8 @@ HEADERS += \
     dfdata.h \
     gtscmdfactory.h \
     framefactory.h \
-    frametagtype.h
+    frametagtype.h \
+    optobj.h
 
 FORMS += \
         mainwindow.ui

@@ -6,6 +6,7 @@
 #include "rmtpserver.h"
 #include "datamanager.h"
 #include "dfdata.h"
+#include "optobj.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,7 @@ private:
     GtsClient gtsClient;
     RmtpServer rmtpserver;
     DataManager dataManager;
+    OptObj optObj;
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
