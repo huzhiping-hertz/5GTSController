@@ -5,8 +5,10 @@
 #include "gtsclient.h"
 #include "rmtpserver.h"
 #include "datamanager.h"
+#include "datalistener.h"
 #include "dfdata.h"
 #include "optobj.h"
+#include <QList>
 
 namespace Ui {
 class MainWindow;
@@ -19,11 +21,15 @@ private:
     GtsClient gtsClient;
     RmtpServer rmtpserver;
     DataManager dataManager;
+    DataListener dataListener;
     OptObj optObj;
+    QList<QString> cmdList;
+    int cmdIndex=0;
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+private:
+    void SendCmd(int i);
 private slots:
 
     void on_btnLinkDevice_clicked();
@@ -36,6 +42,8 @@ private slots:
     void on_btnRmtpListen_clicked();
 
     void on_rmtpserver_receivedcmd(QString cmd);
+
+    void on_btnOptimize_clicked();
 
 private:
     Ui::MainWindow *ui;

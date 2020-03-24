@@ -30,7 +30,8 @@ SOURCES += \
     dfdata.cpp \
     gtscmdfactory.cpp \
     framefactory.cpp \
-    optobj.cpp
+    optobj.cpp \
+    datalistener.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,7 +47,8 @@ HEADERS += \
     gtscmdfactory.h \
     framefactory.h \
     frametagtype.h \
-    optobj.h
+    optobj.h \
+    datalistener.h
 
 FORMS += \
         mainwindow.ui

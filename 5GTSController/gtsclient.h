@@ -8,7 +8,7 @@
 class GtsClient : public QObject
 {
     Q_OBJECT
-private :
+public :
     QTcpSocket tcpsocket;
 public:
     explicit GtsClient(QObject *parent = nullptr);

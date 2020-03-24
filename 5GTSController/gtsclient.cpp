@@ -38,5 +38,7 @@ void GtsClient::on_state_change(QAbstractSocket::SocketState state)
 void GtsClient::on_ready_read()
 {
     QByteArray response = this->tcpsocket.readAll();
-    emit signal_device_response(QString(response));
+    response.chop(4);
+    QByteArray rs=response.remove(0,8);
+    emit signal_device_response(QString(rs));
 }
