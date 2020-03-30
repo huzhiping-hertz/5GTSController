@@ -31,7 +31,8 @@ SOURCES += \
     gtscmdfactory.cpp \
     framefactory.cpp \
     optobj.cpp \
-    datalistener.cpp
+    datalistener.cpp \
+    framedfpscan.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,7 +49,8 @@ HEADERS += \
     framefactory.h \
     frametagtype.h \
     optobj.h \
-    datalistener.h
+    datalistener.h \
+    framedfpscan.h
 
 FORMS += \
         mainwindow.ui

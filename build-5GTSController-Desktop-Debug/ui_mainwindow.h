@@ -35,17 +35,18 @@ public:
     QGridLayout *gridLayout;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout_5;
-    QGroupBox *groupBox_6;
-    QGridLayout *gridLayout_2;
-    QPushButton *btnSendCmd;
-    QPushButton *btnLinkDevice;
-    QLineEdit *txtDeviceIp;
-    QLabel *label;
-    QLineEdit *txtDevicePort;
-    QLabel *label_3;
-    QPushButton *btnOptimize;
     QGroupBox *groupBox_4;
     QVBoxLayout *verticalLayout_3;
+    QGroupBox *groupBox_6;
+    QGridLayout *gridLayout_2;
+    QPushButton *btnStop;
+    QPushButton *btnLinkDevice;
+    QPushButton *btnSendCmd;
+    QLineEdit *txtDataPort;
+    QLineEdit *txtDevicePort;
+    QLineEdit *txtDeviceIp;
+    QLabel *label;
+    QPushButton *btnOptimize;
     QPlainTextEdit *txtDeviceCmd;
     QPlainTextEdit *txtDeviceResponse;
     QGroupBox *groupBox_2;
@@ -82,7 +83,13 @@ public:
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        groupBox_6 = new QGroupBox(groupBox);
+        groupBox_4 = new QGroupBox(groupBox);
+        groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
+        verticalLayout_3 = new QVBoxLayout(groupBox_4);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        groupBox_6 = new QGroupBox(groupBox_4);
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
         QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
@@ -94,55 +101,55 @@ public:
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setHorizontalSpacing(6);
-        btnSendCmd = new QPushButton(groupBox_6);
-        btnSendCmd->setObjectName(QStringLiteral("btnSendCmd"));
-        btnSendCmd->setMinimumSize(QSize(0, 31));
+        btnStop = new QPushButton(groupBox_6);
+        btnStop->setObjectName(QStringLiteral("btnStop"));
 
-        gridLayout_2->addWidget(btnSendCmd, 0, 6, 1, 1);
+        gridLayout_2->addWidget(btnStop, 4, 3, 1, 1);
 
         btnLinkDevice = new QPushButton(groupBox_6);
         btnLinkDevice->setObjectName(QStringLiteral("btnLinkDevice"));
         btnLinkDevice->setMinimumSize(QSize(0, 31));
 
-        gridLayout_2->addWidget(btnLinkDevice, 0, 5, 1, 1);
+        gridLayout_2->addWidget(btnLinkDevice, 4, 1, 1, 1);
+
+        btnSendCmd = new QPushButton(groupBox_6);
+        btnSendCmd->setObjectName(QStringLiteral("btnSendCmd"));
+        btnSendCmd->setMinimumSize(QSize(0, 31));
+
+        gridLayout_2->addWidget(btnSendCmd, 4, 2, 1, 1);
+
+        txtDataPort = new QLineEdit(groupBox_6);
+        txtDataPort->setObjectName(QStringLiteral("txtDataPort"));
+        txtDataPort->setMinimumSize(QSize(0, 28));
+
+        gridLayout_2->addWidget(txtDataPort, 0, 3, 1, 1);
+
+        txtDevicePort = new QLineEdit(groupBox_6);
+        txtDevicePort->setObjectName(QStringLiteral("txtDevicePort"));
+        txtDevicePort->setMinimumSize(QSize(0, 28));
+
+        gridLayout_2->addWidget(txtDevicePort, 0, 2, 1, 1);
 
         txtDeviceIp = new QLineEdit(groupBox_6);
         txtDeviceIp->setObjectName(QStringLiteral("txtDeviceIp"));
         txtDeviceIp->setMinimumSize(QSize(0, 28));
 
-        gridLayout_2->addWidget(txtDeviceIp, 0, 2, 1, 1);
+        gridLayout_2->addWidget(txtDeviceIp, 0, 1, 1, 1);
 
         label = new QLabel(groupBox_6);
         label->setObjectName(QStringLiteral("label"));
 
         gridLayout_2->addWidget(label, 0, 0, 1, 1);
 
-        txtDevicePort = new QLineEdit(groupBox_6);
-        txtDevicePort->setObjectName(QStringLiteral("txtDevicePort"));
-        txtDevicePort->setMinimumSize(QSize(0, 28));
-
-        gridLayout_2->addWidget(txtDevicePort, 0, 4, 1, 1);
-
-        label_3 = new QLabel(groupBox_6);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        gridLayout_2->addWidget(label_3, 0, 3, 1, 1);
-
         btnOptimize = new QPushButton(groupBox_6);
         btnOptimize->setObjectName(QStringLiteral("btnOptimize"));
         btnOptimize->setMinimumSize(QSize(0, 31));
 
-        gridLayout_2->addWidget(btnOptimize, 0, 7, 1, 1);
+        gridLayout_2->addWidget(btnOptimize, 4, 0, 1, 1);
 
 
-        verticalLayout_5->addWidget(groupBox_6);
+        verticalLayout_3->addWidget(groupBox_6);
 
-        groupBox_4 = new QGroupBox(groupBox);
-        groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
-        verticalLayout_3 = new QVBoxLayout(groupBox_4);
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         txtDeviceCmd = new QPlainTextEdit(groupBox_4);
         txtDeviceCmd->setObjectName(QStringLiteral("txtDeviceCmd"));
 
@@ -213,8 +220,7 @@ public:
         gridLayout->addWidget(groupBox_2, 1, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
-        QWidget::setTabOrder(txtDeviceIp, txtDevicePort);
-        QWidget::setTabOrder(txtDevicePort, txtRmtpResponse);
+        QWidget::setTabOrder(txtDeviceIp, txtRmtpResponse);
 
         retranslateUi(MainWindow);
 
@@ -225,15 +231,16 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "5GTS Controller", Q_NULLPTR));
         groupBox->setTitle(QString());
-        groupBox_6->setTitle(QApplication::translate("MainWindow", "5GTS \351\205\215\347\275\256", Q_NULLPTR));
-        btnSendCmd->setText(QApplication::translate("MainWindow", "\345\217\221\351\200\201\346\214\207\344\273\244", Q_NULLPTR));
-        btnLinkDevice->setText(QApplication::translate("MainWindow", "\351\223\276\346\216\245\350\256\276\345\244\207", Q_NULLPTR));
-        txtDeviceIp->setText(QApplication::translate("MainWindow", "172.25.69.157", Q_NULLPTR));
-        label->setText(QApplication::translate("MainWindow", "IP:", Q_NULLPTR));
-        txtDevicePort->setText(QApplication::translate("MainWindow", "5563", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindow", "Port", Q_NULLPTR));
-        btnOptimize->setText(QApplication::translate("MainWindow", "\344\274\230\345\214\226\346\225\260\346\215\256", Q_NULLPTR));
         groupBox_4->setTitle(QApplication::translate("MainWindow", "\346\214\207\344\273\244\345\217\221\351\200\201\344\270\216\350\277\224\345\233\236", Q_NULLPTR));
+        groupBox_6->setTitle(QApplication::translate("MainWindow", "5GTS \351\205\215\347\275\256", Q_NULLPTR));
+        btnStop->setText(QApplication::translate("MainWindow", "\345\201\234\346\255\242\346\265\213\345\220\221", Q_NULLPTR));
+        btnLinkDevice->setText(QApplication::translate("MainWindow", "\351\223\276\346\216\245\350\256\276\345\244\207", Q_NULLPTR));
+        btnSendCmd->setText(QApplication::translate("MainWindow", "\345\274\200\345\247\213\346\265\213\345\220\221", Q_NULLPTR));
+        txtDataPort->setText(QApplication::translate("MainWindow", "5565", Q_NULLPTR));
+        txtDevicePort->setText(QApplication::translate("MainWindow", "5563", Q_NULLPTR));
+        txtDeviceIp->setText(QApplication::translate("MainWindow", "172.25.69.157", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "IP&Port", Q_NULLPTR));
+        btnOptimize->setText(QApplication::translate("MainWindow", "P", Q_NULLPTR));
         txtDeviceCmd->setPlainText(QString());
         groupBox_2->setTitle(QString());
         groupBox_3->setTitle(QApplication::translate("MainWindow", "RMTP\346\234\215\345\212\241\345\231\250", Q_NULLPTR));

@@ -9,7 +9,7 @@
 class DataManager : public QObject
 {
     Q_OBJECT
-private:
+public:
     QTcpSocket tcpsocket;
     DataParser dataParser;
 public:

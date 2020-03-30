@@ -30,6 +30,7 @@ public:
     ~MainWindow();
 private:
     void SendCmd(int i);
+    void GetCmdTemplate(QString filename);
 private slots:
 
     void on_btnLinkDevice_clicked();
@@ -44,6 +45,8 @@ private slots:
     void on_rmtpserver_receivedcmd(QString cmd);
 
     void on_btnOptimize_clicked();
+
+    void on_btnStop_clicked();
 
 private:
     Ui::MainWindow *ui;

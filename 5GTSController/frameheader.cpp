@@ -1,19 +1,36 @@
 #include "frameheader.h"
+#include <QtCore>
+#include <QtEndian>
 
-FrameHeader::FrameHeader() {
+FrameHeader::FrameHeader(const void* buff) {
+    this->buffer=buff;
 }
 
 void FrameHeader::DeSerialize() {
-//  (*this).magic_number = be32toh(*((unsigned int *)buffer));
-//  (*this).minor_version_number = be16toh(*((unsigned short *)(buffer + 4)));
-//  (*this).major_version_number = be16toh(*((unsigned short *)(buffer + 6)));
-//  (*this).sequence_number = be16toh(*((unsigned short *)(buffer + 8)));
-//  (*this).reserved = be16toh(*((unsigned short *)(buffer + 10)));
-//  (*this).data_size = be32toh(*((unsigned int *)(buffer + 12)));
-//  (*this).attribute_tag = be16toh(*((unsigned short *)(buffer + 16)));
-//  (*this).attribute_length = be16toh(*((unsigned short *)(buffer + 18)));
-//  (*this).trace_number_of_items = be16toh(*((unsigned short *)(buffer + 20)));
-//  (*this).trace_reserved = *(buffer + 22);
-//  (*this).trace_optional_header_length = *(buffer + 23);
-//  (*this).trace_selector_flags = be32toh(*((unsigned int *)(buffer + 24)));
+    //16
+  (*this).magic_number =qFromBigEndian<qint32>(buffer);
+  (*this).minor_version_number = qFromBigEndian<quint16>(buffer + 4);
+  (*this).major_version_number = qFromBigEndian<quint16>(buffer + 6);
+  (*this).sequence_low = qFromBigEndian<quint16>(buffer + 8);
+  (*this).sequence_high =qFromBigEndian<quint16>(buffer + 10);
+  (*this).data_size = qFromBigEndian<quint32>(buffer + 12);
+  //12
+  (*this).attribute_tag = qFromBigEndian<quint16>(buffer + 16);
+   (*this).reserved1=qFromBigEndian<quint16>(buffer+18);
+  (*this).attribute_length = qFromBigEndian<quint32>(buffer + 20);
+   (*this).reserved2_1=qFromBigEndian<quint32>(buffer+24);
+   (*this).reserved2_2=qFromBigEndian<quint32>(buffer+28);
+    (*this).reserved2_3=qFromBigEndian<quint32>(buffer+32);
+    (*this).reserved2_4=qFromBigEndian<quint32>(buffer+36);
+
+    //2966
+  (*this).trace_number_of_items = qFromBigEndian<quint32>(buffer + 40);
+  (*this).reserved3 = qFromBigEndian<quint32>(buffer + 44);
+  (*this).trace_optional_header_length = qFromBigEndian<quint32>(buffer + 48);
+  (*this).trace_selector_flags_low =qFromBigEndian<quint32>(buffer + 52);
+  (*this).trace_selector_flags_high =qFromBigEndian<quint32>(buffer + 56);
+  (*this).reserved3_1 =qFromBigEndian<quint32>(buffer + 60);
+    (*this).reserved3_2 =qFromBigEndian<quint32>(buffer + 64);
+    (*this).reserved3_3 =qFromBigEndian<quint32>(buffer + 68);
+    (*this).reserved3_4 =qFromBigEndian<quint32>(buffer + 72);
 }

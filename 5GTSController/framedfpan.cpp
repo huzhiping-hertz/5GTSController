@@ -1,7 +1,7 @@
 #include "framedfpan.h"
 #include "frameheader.h"
 
-FrameDFPan::FrameDFPan(const char *buff) : FrameHeader()
+FrameDFPan::FrameDFPan(const char *buff) : FrameHeader(buff)
 {
 
 }

@@ -10,6 +10,7 @@ enum Frame_TagType {
   IF = 901,
   PScan = 1201,
   DFPan = 1401,
+  DFPScan=5301,
 };
 
 #endif // FRAMETAGTYPE_H

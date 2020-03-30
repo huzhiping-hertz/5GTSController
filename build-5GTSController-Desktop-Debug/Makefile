@@ -64,7 +64,8 @@ SOURCES       = ../5GTSController/main.cpp \
 		../5GTSController/gtscmdfactory.cpp \
 		../5GTSController/framefactory.cpp \
 		../5GTSController/optobj.cpp \
-		../5GTSController/datalistener.cpp moc_mainwindow.cpp \
+		../5GTSController/datalistener.cpp \
+		../5GTSController/framedfpscan.cpp moc_mainwindow.cpp \
 		moc_rmtpserver.cpp \
 		moc_gtsclient.cpp \
 		moc_datamanager.cpp \
@@ -84,6 +85,7 @@ OBJECTS       = main.o \
 		framefactory.o \
 		optobj.o \
 		datalistener.o \
+		framedfpscan.o \
 		moc_mainwindow.o \
 		moc_rmtpserver.o \
 		moc_gtsclient.o \
@@ -182,7 +184,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../5GTSController/framefactory.h \
 		../5GTSController/frametagtype.h \
 		../5GTSController/optobj.h \
-		../5GTSController/datalistener.h ../5GTSController/main.cpp \
+		../5GTSController/datalistener.h \
+		../5GTSController/framedfpscan.h ../5GTSController/main.cpp \
 		../5GTSController/mainwindow.cpp \
 		../5GTSController/rmtpserver.cpp \
 		../5GTSController/rmtpcmd.cpp \
@@ -196,7 +199,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../5GTSController/gtscmdfactory.cpp \
 		../5GTSController/framefactory.cpp \
 		../5GTSController/optobj.cpp \
-		../5GTSController/datalistener.cpp
+		../5GTSController/datalistener.cpp \
+		../5GTSController/framedfpscan.cpp
 QMAKE_TARGET  = 5GTSController
 DESTDIR       = 
 TARGET        = 5GTSController
@@ -394,8 +398,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../5GTSController/mainwindow.h ../5GTSController/rmtpserver.h ../5GTSController/rmtpcmd.h ../5GTSController/gtscmd.h ../5GTSController/gtsclient.h ../5GTSController/datamanager.h ../5GTSController/frameheader.h ../5GTSController/framedfpan.h ../5GTSController/dataparser.h ../5GTSController/dfdata.h ../5GTSController/gtscmdfactory.h ../5GTSController/framefactory.h ../5GTSController/frametagtype.h ../5GTSController/optobj.h ../5GTSController/datalistener.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../5GTSController/main.cpp ../5GTSController/mainwindow.cpp ../5GTSController/rmtpserver.cpp ../5GTSController/rmtpcmd.cpp ../5GTSController/gtscmd.cpp ../5GTSController/gtsclient.cpp ../5GTSController/datamanager.cpp ../5GTSController/frameheader.cpp ../5GTSController/framedfpan.cpp ../5GTSController/dataparser.cpp ../5GTSController/dfdata.cpp ../5GTSController/gtscmdfactory.cpp ../5GTSController/framefactory.cpp ../5GTSController/optobj.cpp ../5GTSController/datalistener.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../5GTSController/mainwindow.h ../5GTSController/rmtpserver.h ../5GTSController/rmtpcmd.h ../5GTSController/gtscmd.h ../5GTSController/gtsclient.h ../5GTSController/datamanager.h ../5GTSController/frameheader.h ../5GTSController/framedfpan.h ../5GTSController/dataparser.h ../5GTSController/dfdata.h ../5GTSController/gtscmdfactory.h ../5GTSController/framefactory.h ../5GTSController/frametagtype.h ../5GTSController/optobj.h ../5GTSController/datalistener.h ../5GTSController/framedfpscan.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../5GTSController/main.cpp ../5GTSController/mainwindow.cpp ../5GTSController/rmtpserver.cpp ../5GTSController/rmtpcmd.cpp ../5GTSController/gtscmd.cpp ../5GTSController/gtsclient.cpp ../5GTSController/datamanager.cpp ../5GTSController/frameheader.cpp ../5GTSController/framedfpan.cpp ../5GTSController/dataparser.cpp ../5GTSController/dfdata.cpp ../5GTSController/gtscmdfactory.cpp ../5GTSController/framefactory.cpp ../5GTSController/optobj.cpp ../5GTSController/datalistener.cpp ../5GTSController/framedfpscan.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../5GTSController/mainwindow.ui $(DISTDIR)/
 
 
@@ -438,6 +442,7 @@ moc_mainwindow.cpp: ../5GTSController/gtsclient.h \
 		../5GTSController/dataparser.h \
 		../5GTSController/dfdata.h \
 		../5GTSController/frameheader.h \
+		../5GTSController/datalistener.h \
 		../5GTSController/optobj.h \
 		../5GTSController/mainwindow.h \
 		moc_predefs.h \
@@ -465,7 +470,8 @@ moc_datamanager.cpp: ../5GTSController/dataparser.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/datamanager.h -o moc_datamanager.cpp
 
-moc_datalistener.cpp: ../5GTSController/datalistener.h \
+moc_datalistener.cpp: ../5GTSController/dfdata.h \
+		../5GTSController/datalistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/datalistener.h -o moc_datalistener.cpp
@@ -497,6 +503,7 @@ main.o: ../5GTSController/main.cpp ../5GTSController/mainwindow.h \
 		../5GTSController/dataparser.h \
 		../5GTSController/dfdata.h \
 		../5GTSController/frameheader.h \
+		../5GTSController/datalistener.h \
 		../5GTSController/optobj.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../5GTSController/main.cpp
 
@@ -508,6 +515,7 @@ mainwindow.o: ../5GTSController/mainwindow.cpp ../5GTSController/mainwindow.h \
 		../5GTSController/dataparser.h \
 		../5GTSController/dfdata.h \
 		../5GTSController/frameheader.h \
+		../5GTSController/datalistener.h \
 		../5GTSController/optobj.h \
 		ui_mainwindow.h \
 		../5GTSController/gtscmdfactory.h
@@ -560,14 +568,23 @@ gtscmdfactory.o: ../5GTSController/gtscmdfactory.cpp ../5GTSController/gtscmdfac
 framefactory.o: ../5GTSController/framefactory.cpp ../5GTSController/framefactory.h \
 		../5GTSController/frameheader.h \
 		../5GTSController/frametagtype.h \
-		../5GTSController/framedfpan.h
+		../5GTSController/framedfpscan.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o framefactory.o ../5GTSController/framefactory.cpp
 
 optobj.o: ../5GTSController/optobj.cpp ../5GTSController/optobj.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o optobj.o ../5GTSController/optobj.cpp
 
-datalistener.o: ../5GTSController/datalistener.cpp ../5GTSController/datalistener.h
+datalistener.o: ../5GTSController/datalistener.cpp ../5GTSController/datalistener.h \
+		../5GTSController/dfdata.h \
+		../5GTSController/datamanager.h \
+		../5GTSController/dataparser.h \
+		../5GTSController/frameheader.h \
+		../5GTSController/framefactory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datalistener.o ../5GTSController/datalistener.cpp
+
+framedfpscan.o: ../5GTSController/framedfpscan.cpp ../5GTSController/framedfpscan.h \
+		../5GTSController/frameheader.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o framedfpscan.o ../5GTSController/framedfpscan.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
