@@ -9,6 +9,11 @@ public:
     qreal quality;
     qreal level;
     qreal bearing;
+    qreal strength;
+    qreal levelcont;
+    qreal elevation;
+    qreal status;
+    qreal omniphase;
 
     QString ToString();
 };

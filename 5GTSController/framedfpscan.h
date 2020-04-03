@@ -28,9 +28,18 @@ public:
     qint16 MeasureCount_high;
     qint32 HopCount;
 
+    qint16 *ptrLevel;
+    qint16 *ptrAzimuth;
+    qint16 *ptrQuality;
+    qint16 *ptrFstrength;
+    qint16 *ptrLevelCont;
+    qint16 *ptrElevation;
+    qint16 *ptrStatus;
+    qint16 *ptrOmniphase;
 
 public:
     FrameDFPscan(const void* buff);
+    ~FrameDFPscan();
     void DeSerialize();
 };
 
