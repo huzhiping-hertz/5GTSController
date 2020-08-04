@@ -1,4 +1,7 @@
 #include "gtscmdfactory.h"
+#include <memory>
+#include <string>
+using namespace std;
 
 GtsCmdFactory::GtsCmdFactory()
 {
@@ -12,8 +15,8 @@ GtsCmd GtsCmdFactory::CreateInitCmd(QString cmdParameter)
     return GtsCmd(cmd);
 }
 
-GtsCmd GtsCmdFactory::CreateDFCmd(QString cmdParameter)
+shared_ptr<GtsCmd> GtsCmdFactory::CreateDFCmd(QString cmdParameter)
 {
     QString cmd="Single DF Cmd";
-    return GtsCmd(cmd);
+    return shared_ptr<GtsCmd>();
 }

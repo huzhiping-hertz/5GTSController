@@ -5,13 +5,14 @@
 
 class GtsCmd
 {
-private:
+protected:
     QString cmdContent;
 
 public:
     GtsCmd(QString cmd);
 
-    QByteArray GetCmdContent();
+    virtual QByteArray GetCmdContent();
+    virtual QByteArray GetResponse();
 };
 
 #endif // GTSCMD_H

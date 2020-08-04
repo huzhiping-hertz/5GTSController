@@ -1,17 +1,21 @@
-#include "rmtpcmd.h"
+
 #include <QString>
+#include "rmtpcmd.h"
 
 RmtpCmd::RmtpCmd()
 {
 
 }
 
+QByteArray RmtpCmd::GetResponse()
+{
+    QByteArray rs;
+    return rs;
+}
+
 QString RmtpCmd::CmdParse(QByteArray cmdstr)
 {
     QString cmd(cmdstr);
-    this->frequency=108000000;
-    this->bandwidth=2000000;
-    this->span=2000000;
     return cmd;
 }
 

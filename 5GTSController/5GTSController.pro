@@ -32,7 +32,15 @@ SOURCES += \
     framefactory.cpp \
     optobj.cpp \
     datalistener.cpp \
-    framedfpscan.cpp
+    framedfpscan.cpp \
+    rmtpcmdverify.cpp \
+    rmtpcmdfixdf.cpp \
+    rmtpcmdfactory.cpp \
+    rmtpcmderror.cpp \
+    rmtpcmdprefixdf.cpp \
+    rmtpcmdfixdfparam.cpp \
+    rmtpcmdstop.cpp \
+    fixdfcmdparam.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,7 +58,16 @@ HEADERS += \
     frametagtype.h \
     optobj.h \
     datalistener.h \
-    framedfpscan.h
+    framedfpscan.h \
+    transducer.h \
+    rmtpcmdverify.h \
+    rmtpcmdfixdf.h \
+    rmtpcmdfactory.h \
+    rmtpcmderror.h \
+    rmtpcmdprefixdf.h \
+    rmtpcmdfixdfparam.h \
+    rmtpcmdstop.h \
+    fixdfcmdparam.h
 
 FORMS += \
         mainwindow.ui

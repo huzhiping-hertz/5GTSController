@@ -53,9 +53,12 @@ public:
     QVBoxLayout *verticalLayout;
     QGroupBox *groupBox_3;
     QHBoxLayout *horizontalLayout;
+    QLabel *label_3;
+    QLineEdit *txtRmtpIP;
     QLabel *label_2;
     QLineEdit *txtRmtpPort;
     QPushButton *btnRmtpListen;
+    QPushButton *btnRmtpStop;
     QGroupBox *groupBox_5;
     QVBoxLayout *verticalLayout_4;
     QTextEdit *txtRmtpCmd;
@@ -65,7 +68,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(951, 688);
+        MainWindow->resize(1017, 686);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -178,6 +181,16 @@ public:
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        label_3 = new QLabel(groupBox_3);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        horizontalLayout->addWidget(label_3);
+
+        txtRmtpIP = new QLineEdit(groupBox_3);
+        txtRmtpIP->setObjectName(QStringLiteral("txtRmtpIP"));
+
+        horizontalLayout->addWidget(txtRmtpIP);
+
         label_2 = new QLabel(groupBox_3);
         label_2->setObjectName(QStringLiteral("label_2"));
 
@@ -186,6 +199,7 @@ public:
         txtRmtpPort = new QLineEdit(groupBox_3);
         txtRmtpPort->setObjectName(QStringLiteral("txtRmtpPort"));
         txtRmtpPort->setMinimumSize(QSize(0, 28));
+        txtRmtpPort->setMaximumSize(QSize(100, 16777215));
 
         horizontalLayout->addWidget(txtRmtpPort);
 
@@ -193,6 +207,11 @@ public:
         btnRmtpListen->setObjectName(QStringLiteral("btnRmtpListen"));
 
         horizontalLayout->addWidget(btnRmtpListen);
+
+        btnRmtpStop = new QPushButton(groupBox_3);
+        btnRmtpStop->setObjectName(QStringLiteral("btnRmtpStop"));
+
+        horizontalLayout->addWidget(btnRmtpStop);
 
 
         verticalLayout->addWidget(groupBox_3);
@@ -244,9 +263,12 @@ public:
         txtDeviceCmd->setPlainText(QString());
         groupBox_2->setTitle(QString());
         groupBox_3->setTitle(QApplication::translate("MainWindow", "RMTP\346\234\215\345\212\241\345\231\250", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindow", "IP", Q_NULLPTR));
+        txtRmtpIP->setText(QApplication::translate("MainWindow", "172.25.65.122", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindow", "Port", Q_NULLPTR));
         txtRmtpPort->setText(QApplication::translate("MainWindow", "5000", Q_NULLPTR));
         btnRmtpListen->setText(QApplication::translate("MainWindow", "\345\274\200\345\247\213\347\233\221\345\220\254", Q_NULLPTR));
+        btnRmtpStop->setText(QApplication::translate("MainWindow", "\345\201\234\346\255\242\347\233\221\345\220\254", Q_NULLPTR));
         groupBox_5->setTitle(QApplication::translate("MainWindow", "\346\214\207\344\273\244\346\216\245\346\224\266\344\270\216\350\277\224\345\233\236", Q_NULLPTR));
     } // retranslateUi
 

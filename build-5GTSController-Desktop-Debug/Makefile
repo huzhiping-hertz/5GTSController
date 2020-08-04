@@ -65,11 +65,21 @@ SOURCES       = ../5GTSController/main.cpp \
 		../5GTSController/framefactory.cpp \
 		../5GTSController/optobj.cpp \
 		../5GTSController/datalistener.cpp \
-		../5GTSController/framedfpscan.cpp moc_mainwindow.cpp \
+		../5GTSController/framedfpscan.cpp \
+		../5GTSController/rmtpcmdverify.cpp \
+		../5GTSController/rmtpcmdfixdf.cpp \
+		../5GTSController/rmtpcmdfactory.cpp \
+		../5GTSController/rmtpcmderror.cpp \
+		../5GTSController/rmtpcmdprefixdf.cpp \
+		../5GTSController/rmtpcmdfixdfparam.cpp \
+		../5GTSController/rmtpcmdstop.cpp \
+		../5GTSController/fixdfcmdparam.cpp moc_mainwindow.cpp \
 		moc_rmtpserver.cpp \
+		moc_rmtpcmd.cpp \
 		moc_gtsclient.cpp \
 		moc_datamanager.cpp \
-		moc_datalistener.cpp
+		moc_datalistener.cpp \
+		moc_rmtpcmdstop.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		rmtpserver.o \
@@ -86,11 +96,21 @@ OBJECTS       = main.o \
 		optobj.o \
 		datalistener.o \
 		framedfpscan.o \
+		rmtpcmdverify.o \
+		rmtpcmdfixdf.o \
+		rmtpcmdfactory.o \
+		rmtpcmderror.o \
+		rmtpcmdprefixdf.o \
+		rmtpcmdfixdfparam.o \
+		rmtpcmdstop.o \
+		fixdfcmdparam.o \
 		moc_mainwindow.o \
 		moc_rmtpserver.o \
+		moc_rmtpcmd.o \
 		moc_gtsclient.o \
 		moc_datamanager.o \
-		moc_datalistener.o
+		moc_datalistener.o \
+		moc_rmtpcmdstop.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -102,12 +122,14 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_charts.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_designer.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri \
@@ -118,9 +140,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_glx_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_help.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri \
@@ -138,11 +163,17 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_uiplugin.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_uitools.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_x11extras.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri \
@@ -185,7 +216,16 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../5GTSController/frametagtype.h \
 		../5GTSController/optobj.h \
 		../5GTSController/datalistener.h \
-		../5GTSController/framedfpscan.h ../5GTSController/main.cpp \
+		../5GTSController/framedfpscan.h \
+		../5GTSController/transducer.h \
+		../5GTSController/rmtpcmdverify.h \
+		../5GTSController/rmtpcmdfixdf.h \
+		../5GTSController/rmtpcmdfactory.h \
+		../5GTSController/rmtpcmderror.h \
+		../5GTSController/rmtpcmdprefixdf.h \
+		../5GTSController/rmtpcmdfixdfparam.h \
+		../5GTSController/rmtpcmdstop.h \
+		../5GTSController/fixdfcmdparam.h ../5GTSController/main.cpp \
 		../5GTSController/mainwindow.cpp \
 		../5GTSController/rmtpserver.cpp \
 		../5GTSController/rmtpcmd.cpp \
@@ -200,7 +240,15 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../5GTSController/framefactory.cpp \
 		../5GTSController/optobj.cpp \
 		../5GTSController/datalistener.cpp \
-		../5GTSController/framedfpscan.cpp
+		../5GTSController/framedfpscan.cpp \
+		../5GTSController/rmtpcmdverify.cpp \
+		../5GTSController/rmtpcmdfixdf.cpp \
+		../5GTSController/rmtpcmdfactory.cpp \
+		../5GTSController/rmtpcmderror.cpp \
+		../5GTSController/rmtpcmdprefixdf.cpp \
+		../5GTSController/rmtpcmdfixdfparam.cpp \
+		../5GTSController/rmtpcmdstop.cpp \
+		../5GTSController/fixdfcmdparam.cpp
 QMAKE_TARGET  = 5GTSController
 DESTDIR       = 
 TARGET        = 5GTSController
@@ -223,12 +271,14 @@ Makefile: ../5GTSController/5GTSController.pro /usr/lib/x86_64-linux-gnu/qt5/mks
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_charts.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_designer.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri \
@@ -239,9 +289,12 @@ Makefile: ../5GTSController/5GTSController.pro /usr/lib/x86_64-linux-gnu/qt5/mks
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_glx_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_help.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri \
@@ -259,11 +312,17 @@ Makefile: ../5GTSController/5GTSController.pro /usr/lib/x86_64-linux-gnu/qt5/mks
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_uiplugin.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_uitools.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_x11extras.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri \
@@ -309,12 +368,14 @@ Makefile: ../5GTSController/5GTSController.pro /usr/lib/x86_64-linux-gnu/qt5/mks
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_charts.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_designer.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri:
@@ -325,9 +386,12 @@ Makefile: ../5GTSController/5GTSController.pro /usr/lib/x86_64-linux-gnu/qt5/mks
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_glx_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_help.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri:
@@ -345,11 +409,17 @@ Makefile: ../5GTSController/5GTSController.pro /usr/lib/x86_64-linux-gnu/qt5/mks
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_uiplugin.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_uitools.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_x11extras.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri:
@@ -398,8 +468,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../5GTSController/mainwindow.h ../5GTSController/rmtpserver.h ../5GTSController/rmtpcmd.h ../5GTSController/gtscmd.h ../5GTSController/gtsclient.h ../5GTSController/datamanager.h ../5GTSController/frameheader.h ../5GTSController/framedfpan.h ../5GTSController/dataparser.h ../5GTSController/dfdata.h ../5GTSController/gtscmdfactory.h ../5GTSController/framefactory.h ../5GTSController/frametagtype.h ../5GTSController/optobj.h ../5GTSController/datalistener.h ../5GTSController/framedfpscan.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../5GTSController/main.cpp ../5GTSController/mainwindow.cpp ../5GTSController/rmtpserver.cpp ../5GTSController/rmtpcmd.cpp ../5GTSController/gtscmd.cpp ../5GTSController/gtsclient.cpp ../5GTSController/datamanager.cpp ../5GTSController/frameheader.cpp ../5GTSController/framedfpan.cpp ../5GTSController/dataparser.cpp ../5GTSController/dfdata.cpp ../5GTSController/gtscmdfactory.cpp ../5GTSController/framefactory.cpp ../5GTSController/optobj.cpp ../5GTSController/datalistener.cpp ../5GTSController/framedfpscan.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../5GTSController/mainwindow.h ../5GTSController/rmtpserver.h ../5GTSController/rmtpcmd.h ../5GTSController/gtscmd.h ../5GTSController/gtsclient.h ../5GTSController/datamanager.h ../5GTSController/frameheader.h ../5GTSController/framedfpan.h ../5GTSController/dataparser.h ../5GTSController/dfdata.h ../5GTSController/gtscmdfactory.h ../5GTSController/framefactory.h ../5GTSController/frametagtype.h ../5GTSController/optobj.h ../5GTSController/datalistener.h ../5GTSController/framedfpscan.h ../5GTSController/transducer.h ../5GTSController/rmtpcmdverify.h ../5GTSController/rmtpcmdfixdf.h ../5GTSController/rmtpcmdfactory.h ../5GTSController/rmtpcmderror.h ../5GTSController/rmtpcmdprefixdf.h ../5GTSController/rmtpcmdfixdfparam.h ../5GTSController/rmtpcmdstop.h ../5GTSController/fixdfcmdparam.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../5GTSController/main.cpp ../5GTSController/mainwindow.cpp ../5GTSController/rmtpserver.cpp ../5GTSController/rmtpcmd.cpp ../5GTSController/gtscmd.cpp ../5GTSController/gtsclient.cpp ../5GTSController/datamanager.cpp ../5GTSController/frameheader.cpp ../5GTSController/framedfpan.cpp ../5GTSController/dataparser.cpp ../5GTSController/dfdata.cpp ../5GTSController/gtscmdfactory.cpp ../5GTSController/framefactory.cpp ../5GTSController/optobj.cpp ../5GTSController/datalistener.cpp ../5GTSController/framedfpscan.cpp ../5GTSController/rmtpcmdverify.cpp ../5GTSController/rmtpcmdfixdf.cpp ../5GTSController/rmtpcmdfactory.cpp ../5GTSController/rmtpcmderror.cpp ../5GTSController/rmtpcmdprefixdf.cpp ../5GTSController/rmtpcmdfixdfparam.cpp ../5GTSController/rmtpcmdstop.cpp ../5GTSController/fixdfcmdparam.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../5GTSController/mainwindow.ui $(DISTDIR)/
 
 
@@ -432,9 +502,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_rmtpserver.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_rmtpserver.cpp moc_rmtpcmd.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp moc_rmtpcmdstop.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_rmtpserver.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_rmtpserver.cpp moc_rmtpcmd.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp moc_rmtpcmdstop.cpp
 moc_mainwindow.cpp: ../5GTSController/gtsclient.h \
 		../5GTSController/gtscmd.h \
 		../5GTSController/rmtpserver.h \
@@ -456,6 +526,11 @@ moc_rmtpserver.cpp: ../5GTSController/gtsclient.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/rmtpserver.h -o moc_rmtpserver.cpp
 
+moc_rmtpcmd.cpp: ../5GTSController/rmtpcmd.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/rmtpcmd.h -o moc_rmtpcmd.cpp
+
 moc_gtsclient.cpp: ../5GTSController/gtscmd.h \
 		../5GTSController/gtsclient.h \
 		moc_predefs.h \
@@ -475,6 +550,11 @@ moc_datalistener.cpp: ../5GTSController/dfdata.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/datalistener.h -o moc_datalistener.cpp
+
+moc_rmtpcmdstop.cpp: ../5GTSController/rmtpcmdstop.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/rmtpcmdstop.h -o moc_rmtpcmdstop.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -518,13 +598,15 @@ mainwindow.o: ../5GTSController/mainwindow.cpp ../5GTSController/mainwindow.h \
 		../5GTSController/datalistener.h \
 		../5GTSController/optobj.h \
 		ui_mainwindow.h \
-		../5GTSController/gtscmdfactory.h
+		../5GTSController/rmtpcmdfactory.h \
+		../5GTSController/rmtpcmd.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../5GTSController/mainwindow.cpp
 
 rmtpserver.o: ../5GTSController/rmtpserver.cpp ../5GTSController/rmtpserver.h \
 		../5GTSController/gtsclient.h \
 		../5GTSController/gtscmd.h \
-		../5GTSController/rmtpcmd.h
+		../5GTSController/rmtpcmd.h \
+		../5GTSController/rmtpcmdfactory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpserver.o ../5GTSController/rmtpserver.cpp
 
 rmtpcmd.o: ../5GTSController/rmtpcmd.cpp ../5GTSController/rmtpcmd.h
@@ -555,7 +637,7 @@ framedfpan.o: ../5GTSController/framedfpan.cpp ../5GTSController/framedfpan.h \
 dataparser.o: ../5GTSController/dataparser.cpp ../5GTSController/dataparser.h \
 		../5GTSController/dfdata.h \
 		../5GTSController/frameheader.h \
-		../5GTSController/framedfpan.h
+		../5GTSController/framedfpscan.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dataparser.o ../5GTSController/dataparser.cpp
 
 dfdata.o: ../5GTSController/dfdata.cpp ../5GTSController/dfdata.h
@@ -586,11 +668,53 @@ framedfpscan.o: ../5GTSController/framedfpscan.cpp ../5GTSController/framedfpsca
 		../5GTSController/frameheader.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o framedfpscan.o ../5GTSController/framedfpscan.cpp
 
+rmtpcmdverify.o: ../5GTSController/rmtpcmdverify.cpp ../5GTSController/rmtpcmdverify.h \
+		../5GTSController/rmtpcmd.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpcmdverify.o ../5GTSController/rmtpcmdverify.cpp
+
+rmtpcmdfixdf.o: ../5GTSController/rmtpcmdfixdf.cpp ../5GTSController/rmtpcmdfixdf.h \
+		../5GTSController/rmtpcmd.h \
+		../5GTSController/gtscmd.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpcmdfixdf.o ../5GTSController/rmtpcmdfixdf.cpp
+
+rmtpcmdfactory.o: ../5GTSController/rmtpcmdfactory.cpp ../5GTSController/rmtpcmdfactory.h \
+		../5GTSController/rmtpcmd.h \
+		../5GTSController/rmtpcmdverify.h \
+		../5GTSController/rmtpcmdfixdf.h \
+		../5GTSController/rmtpcmderror.h \
+		../5GTSController/rmtpcmdprefixdf.h \
+		../5GTSController/rmtpcmdfixdfparam.h \
+		../5GTSController/fixdfcmdparam.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpcmdfactory.o ../5GTSController/rmtpcmdfactory.cpp
+
+rmtpcmderror.o: ../5GTSController/rmtpcmderror.cpp ../5GTSController/rmtpcmderror.h \
+		../5GTSController/rmtpcmd.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpcmderror.o ../5GTSController/rmtpcmderror.cpp
+
+rmtpcmdprefixdf.o: ../5GTSController/rmtpcmdprefixdf.cpp ../5GTSController/rmtpcmdprefixdf.h \
+		../5GTSController/rmtpcmd.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpcmdprefixdf.o ../5GTSController/rmtpcmdprefixdf.cpp
+
+rmtpcmdfixdfparam.o: ../5GTSController/rmtpcmdfixdfparam.cpp ../5GTSController/rmtpcmdfixdfparam.h \
+		../5GTSController/rmtpcmd.h \
+		../5GTSController/fixdfcmdparam.h \
+		../5GTSController/gtscmd.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpcmdfixdfparam.o ../5GTSController/rmtpcmdfixdfparam.cpp
+
+rmtpcmdstop.o: ../5GTSController/rmtpcmdstop.cpp ../5GTSController/rmtpcmdstop.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpcmdstop.o ../5GTSController/rmtpcmdstop.cpp
+
+fixdfcmdparam.o: ../5GTSController/fixdfcmdparam.cpp ../5GTSController/fixdfcmdparam.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fixdfcmdparam.o ../5GTSController/fixdfcmdparam.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
 moc_rmtpserver.o: moc_rmtpserver.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_rmtpserver.o moc_rmtpserver.cpp
+
+moc_rmtpcmd.o: moc_rmtpcmd.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_rmtpcmd.o moc_rmtpcmd.cpp
 
 moc_gtsclient.o: moc_gtsclient.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_gtsclient.o moc_gtsclient.cpp
@@ -600,6 +724,9 @@ moc_datamanager.o: moc_datamanager.cpp
 
 moc_datalistener.o: moc_datalistener.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_datalistener.o moc_datalistener.cpp
+
+moc_rmtpcmdstop.o: moc_rmtpcmdstop.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_rmtpcmdstop.o moc_rmtpcmdstop.cpp
 
 ####### Install
 

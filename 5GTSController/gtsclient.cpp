@@ -16,9 +16,9 @@ bool GtsClient::ConnectDevice(QString ip, qint32 port)
     return true;
 }
 
- QString GtsClient::SendCmd(GtsCmd &cmd)
+ QString GtsClient::SendCmd(QByteArray rs)
 {
-    this->tcpsocket.write(cmd.GetCmdContent());
+    this->tcpsocket.write(rs);
     this->tcpsocket.flush();
     return "";
 }

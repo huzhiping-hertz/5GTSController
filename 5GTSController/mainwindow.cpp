@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "gtscmdfactory.h"
-#include "gtscmd.h"
+#include "rmtpcmdfactory.h"
+#include "rmtpcmd.h"
 #include "datamanager.h"
 
 #include <QSql>
@@ -36,12 +36,10 @@ void MainWindow::on_btnLinkDevice_clicked()
     QObject::connect(&gtsClient,SIGNAL(signal_device_disconnected()),this,SLOT(on_device_disconnected()));
     QObject::connect(&gtsClient,SIGNAL(signal_device_response(QString)),this,SLOT(on_device_response(QString)));
     QObject::connect(&dataManager,SIGNAL(signal_received_data(DFData)),this,SLOT(on_device_response_data(DFData)));
+    QObject::connect(&rmtpserver,SIGNAL(signal_FIXDF(shared_ptr<RmtpCmdFixDFParam>)),this,SLOT(on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam>)));
 
     gtsClient.ConnectDevice(ip,port);
     dataManager.ConnectDevice(ip,dataPort);
-
-
-
 }
 
 void MainWindow::on_device_connected()
@@ -113,7 +111,7 @@ void MainWindow::SendCmd(int i)
     if(i<this->cmdList.count())
     {
         GtsCmd gtscmd(this->cmdList[i]);
-        this->gtsClient.SendCmd(gtscmd);
+        this->gtsClient.SendCmd(gtscmd.GetCmdContent());
     }
 }
 //停止测向
@@ -128,7 +126,8 @@ void MainWindow::on_btnRmtpListen_clicked()
 {
     qint32 port =ui->txtRmtpPort->text().toInt();
     QObject::connect(&rmtpserver,SIGNAL(signal_received_cmd(QString)),this,SLOT(on_rmtpserver_receivedcmd(QString)));
-    QString rs=this->rmtpserver.Start(port);
+    QString ip=ui->txtRmtpIP->text();
+    QString rs=this->rmtpserver.Start(ip,port);
     ui->txtRmtpResponse->append(rs);
 }
 
@@ -136,9 +135,9 @@ void MainWindow::on_rmtpserver_receivedcmd(QString cmd)
 {
     ui->txtRmtpCmd->setText(cmd);
     ui->txtDeviceCmd->setPlainText(cmd);
-    GtsCmdFactory factory;
-    GtsCmd dfcmd=factory.CreateDFCmd(cmd);
-    this->gtsClient.SendCmd(dfcmd);
+    RmtpCmdFactory factory;
+    shared_ptr<RmtpCmd> cmdptr=factory.CreateCmd(cmd);
+    this->gtsClient.SendCmd(cmdptr->GetResponse());
 }
 
 void MainWindow::on_btnOptimize_clicked()
@@ -168,3 +167,15 @@ void MainWindow::on_btnOptimize_clicked()
     }
 }
 
+
+void MainWindow::on_btnRmtpStop_clicked()
+{
+    rmtpserver.Stop();
+    ui->txtRmtpResponse->append("RMTP Stop Listening");
+}
+
+void MainWindow::on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam> ptr)
+{
+    this->GetCmdTemplate("startcmd");
+    this->SendCmd(0);
+}

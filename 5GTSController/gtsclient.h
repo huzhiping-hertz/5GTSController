@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QTcpSocket>
+#include <QByteArray>
+
 #include "gtscmd.h"
 
 class GtsClient : public QObject
@@ -13,7 +15,7 @@ public :
 public:
     explicit GtsClient(QObject *parent = nullptr);
     bool ConnectDevice(QString ip , qint32 port);
-    QString SendCmd(GtsCmd &cmd);
+    QString SendCmd(QByteArray rs);
 signals:
     void signal_device_disconnected();
     void signal_device_connected();

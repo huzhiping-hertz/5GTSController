@@ -9,6 +9,9 @@
 #include "dfdata.h"
 #include "optobj.h"
 #include <QList>
+#include "rmtpcmdfixdfparam.h"
+#include <memory>
+using namespace std;
 
 namespace Ui {
 class MainWindow;
@@ -47,6 +50,9 @@ private slots:
     void on_btnOptimize_clicked();
 
     void on_btnStop_clicked();
+
+    void on_btnRmtpStop_clicked();
+    void on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam>ptr);
 
 private:
     Ui::MainWindow *ui;

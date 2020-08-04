@@ -15,7 +15,14 @@ QByteArray GtsCmd::GetCmdContent()
     QDataStream out(&rs,QIODevice::ReadWrite);
     out<<bmagic<<this->cmdContent.toLatin1().data()<<emagic;
     return rs;
+}
 
+QByteArray GtsCmd::GetResponse()
+{
+    QByteArray rs;
+    QDataStream out(&rs,QIODevice::ReadWrite);
+    out<<"No Response";
+    return rs;
 }
 
 

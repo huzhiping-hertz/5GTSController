@@ -4,8 +4,11 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QString>
 #include "gtsclient.h"
-
+#include "rmtpcmdfixdfparam.h"
+#include <memory>
+using namespace std;
 class RmtpServer : public QObject
 {
     Q_OBJECT
@@ -16,11 +19,13 @@ private:
 public:
     explicit RmtpServer(QObject *parent = nullptr);
 
-    QString Start(qint32 port);
+    QString Start(QString ip,qint32 port);
+    void Stop();
 
 
 signals:
     void signal_received_cmd(QString cmd);
+    void signal_FIXDF(shared_ptr<RmtpCmdFixDFParam> ptr);
 
 public slots:
     void on_newclient_connected();
