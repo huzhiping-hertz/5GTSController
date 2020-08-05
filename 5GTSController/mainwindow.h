@@ -11,11 +11,20 @@
 #include <QList>
 #include "rmtpcmdfixdfparam.h"
 #include <memory>
+#include "qwt_dial_needle.h"
 using namespace std;
 
 namespace Ui {
 class MainWindow;
 }
+
+struct paramObj
+{
+    qreal frequency;
+    qint32 ifpan;
+    qint32 dfpan;
+    QString demode;
+};
 
 class MainWindow : public QMainWindow
 {
@@ -28,6 +37,8 @@ private:
     OptObj optObj;
     QList<QString> cmdList;
     int cmdIndex=0;
+    QwtDialNeedle *dial_needle;
+    paramObj obj;
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();

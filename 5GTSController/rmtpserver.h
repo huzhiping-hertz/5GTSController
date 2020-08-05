@@ -5,6 +5,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QString>
+#include "dfdata.h"
 #include "gtsclient.h"
 #include "rmtpcmdfixdfparam.h"
 #include <memory>
@@ -15,6 +16,7 @@ class RmtpServer : public QObject
 private:
     QTcpServer tcpserver;
     QList<QTcpSocket*>  clientSocketList;
+    QTcpSocket* socketPtr;
 
 public:
     explicit RmtpServer(QObject *parent = nullptr);
@@ -30,6 +32,7 @@ signals:
 public slots:
     void on_newclient_connected();
     void on_ready_read();
+    void on_get_monitor_data(DFData data);
     void on_state_changed(QAbstractSocket::SocketState socketState);
 };
 

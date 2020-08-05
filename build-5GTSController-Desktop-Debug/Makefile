@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../5GTSController -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtSql -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I../5GTSController -I. -isystem /usr/include/qwt -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtSql -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = 5GTSController1.0.0
 DISTDIR = /home/hz/work/RSCode/5GTSControler/build-5GTSController-Desktop-Debug/.tmp/5GTSController1.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/hz/work/RSCode/5GTSControler/5GTSController/../../../../../../usr/lib/ -lqwt -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -75,7 +75,6 @@ SOURCES       = ../5GTSController/main.cpp \
 		../5GTSController/rmtpcmdstop.cpp \
 		../5GTSController/fixdfcmdparam.cpp moc_mainwindow.cpp \
 		moc_rmtpserver.cpp \
-		moc_rmtpcmd.cpp \
 		moc_gtsclient.cpp \
 		moc_datamanager.cpp \
 		moc_datalistener.cpp \
@@ -106,7 +105,6 @@ OBJECTS       = main.o \
 		fixdfcmdparam.o \
 		moc_mainwindow.o \
 		moc_rmtpserver.o \
-		moc_rmtpcmd.o \
 		moc_gtsclient.o \
 		moc_datamanager.o \
 		moc_datalistener.o \
@@ -502,12 +500,14 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_rmtpserver.cpp moc_rmtpcmd.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp moc_rmtpcmdstop.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_rmtpserver.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp moc_rmtpcmdstop.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_rmtpserver.cpp moc_rmtpcmd.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp moc_rmtpcmdstop.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_rmtpserver.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp moc_rmtpcmdstop.cpp
 moc_mainwindow.cpp: ../5GTSController/gtsclient.h \
 		../5GTSController/gtscmd.h \
 		../5GTSController/rmtpserver.h \
+		../5GTSController/rmtpcmdfixdfparam.h \
+		../5GTSController/rmtpcmd.h \
 		../5GTSController/datamanager.h \
 		../5GTSController/dataparser.h \
 		../5GTSController/dfdata.h \
@@ -517,25 +517,22 @@ moc_mainwindow.cpp: ../5GTSController/gtsclient.h \
 		../5GTSController/mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/qwt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/mainwindow.h -o moc_mainwindow.cpp
 
 moc_rmtpserver.cpp: ../5GTSController/gtsclient.h \
 		../5GTSController/gtscmd.h \
+		../5GTSController/rmtpcmdfixdfparam.h \
+		../5GTSController/rmtpcmd.h \
 		../5GTSController/rmtpserver.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/rmtpserver.h -o moc_rmtpserver.cpp
-
-moc_rmtpcmd.cpp: ../5GTSController/rmtpcmd.h \
-		moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/rmtpcmd.h -o moc_rmtpcmd.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/qwt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/rmtpserver.h -o moc_rmtpserver.cpp
 
 moc_gtsclient.cpp: ../5GTSController/gtscmd.h \
 		../5GTSController/gtsclient.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/gtsclient.h -o moc_gtsclient.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/qwt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/gtsclient.h -o moc_gtsclient.cpp
 
 moc_datamanager.cpp: ../5GTSController/dataparser.h \
 		../5GTSController/dfdata.h \
@@ -543,18 +540,18 @@ moc_datamanager.cpp: ../5GTSController/dataparser.h \
 		../5GTSController/datamanager.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/datamanager.h -o moc_datamanager.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/qwt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/datamanager.h -o moc_datamanager.cpp
 
 moc_datalistener.cpp: ../5GTSController/dfdata.h \
 		../5GTSController/datalistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/datalistener.h -o moc_datalistener.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/qwt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/datalistener.h -o moc_datalistener.cpp
 
 moc_rmtpcmdstop.cpp: ../5GTSController/rmtpcmdstop.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/rmtpcmdstop.h -o moc_rmtpcmdstop.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/qwt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/rmtpcmdstop.h -o moc_rmtpcmdstop.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -562,7 +559,9 @@ compiler_uic_make_all: ui_mainwindow.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_mainwindow.h
 ui_mainwindow.h: ../5GTSController/mainwindow.ui \
-		/usr/lib/qt5/bin/uic
+		/usr/lib/qt5/bin/uic \
+		/usr/include/qwt/qwt_dial.h \
+		/usr/include/qwt/qwt_thermo.h
 	/usr/lib/qt5/bin/uic ../5GTSController/mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
@@ -579,6 +578,8 @@ main.o: ../5GTSController/main.cpp ../5GTSController/mainwindow.h \
 		../5GTSController/gtsclient.h \
 		../5GTSController/gtscmd.h \
 		../5GTSController/rmtpserver.h \
+		../5GTSController/rmtpcmdfixdfparam.h \
+		../5GTSController/rmtpcmd.h \
 		../5GTSController/datamanager.h \
 		../5GTSController/dataparser.h \
 		../5GTSController/dfdata.h \
@@ -591,6 +592,8 @@ mainwindow.o: ../5GTSController/mainwindow.cpp ../5GTSController/mainwindow.h \
 		../5GTSController/gtsclient.h \
 		../5GTSController/gtscmd.h \
 		../5GTSController/rmtpserver.h \
+		../5GTSController/rmtpcmdfixdfparam.h \
+		../5GTSController/rmtpcmd.h \
 		../5GTSController/datamanager.h \
 		../5GTSController/dataparser.h \
 		../5GTSController/dfdata.h \
@@ -598,13 +601,13 @@ mainwindow.o: ../5GTSController/mainwindow.cpp ../5GTSController/mainwindow.h \
 		../5GTSController/datalistener.h \
 		../5GTSController/optobj.h \
 		ui_mainwindow.h \
-		../5GTSController/rmtpcmdfactory.h \
-		../5GTSController/rmtpcmd.h
+		../5GTSController/rmtpcmdfactory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../5GTSController/mainwindow.cpp
 
 rmtpserver.o: ../5GTSController/rmtpserver.cpp ../5GTSController/rmtpserver.h \
 		../5GTSController/gtsclient.h \
 		../5GTSController/gtscmd.h \
+		../5GTSController/rmtpcmdfixdfparam.h \
 		../5GTSController/rmtpcmd.h \
 		../5GTSController/rmtpcmdfactory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpserver.o ../5GTSController/rmtpserver.cpp
@@ -683,8 +686,7 @@ rmtpcmdfactory.o: ../5GTSController/rmtpcmdfactory.cpp ../5GTSController/rmtpcmd
 		../5GTSController/rmtpcmdfixdf.h \
 		../5GTSController/rmtpcmderror.h \
 		../5GTSController/rmtpcmdprefixdf.h \
-		../5GTSController/rmtpcmdfixdfparam.h \
-		../5GTSController/fixdfcmdparam.h
+		../5GTSController/rmtpcmdfixdfparam.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpcmdfactory.o ../5GTSController/rmtpcmdfactory.cpp
 
 rmtpcmderror.o: ../5GTSController/rmtpcmderror.cpp ../5GTSController/rmtpcmderror.h \
@@ -695,10 +697,9 @@ rmtpcmdprefixdf.o: ../5GTSController/rmtpcmdprefixdf.cpp ../5GTSController/rmtpc
 		../5GTSController/rmtpcmd.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpcmdprefixdf.o ../5GTSController/rmtpcmdprefixdf.cpp
 
-rmtpcmdfixdfparam.o: ../5GTSController/rmtpcmdfixdfparam.cpp ../5GTSController/rmtpcmdfixdfparam.h \
-		../5GTSController/rmtpcmd.h \
-		../5GTSController/fixdfcmdparam.h \
-		../5GTSController/gtscmd.h
+rmtpcmdfixdfparam.o: ../5GTSController/rmtpcmdfixdfparam.cpp ../5GTSController/gtscmd.h \
+		../5GTSController/rmtpcmdfixdfparam.h \
+		../5GTSController/rmtpcmd.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rmtpcmdfixdfparam.o ../5GTSController/rmtpcmdfixdfparam.cpp
 
 rmtpcmdstop.o: ../5GTSController/rmtpcmdstop.cpp ../5GTSController/rmtpcmdstop.h
@@ -712,9 +713,6 @@ moc_mainwindow.o: moc_mainwindow.cpp
 
 moc_rmtpserver.o: moc_rmtpserver.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_rmtpserver.o moc_rmtpserver.cpp
-
-moc_rmtpcmd.o: moc_rmtpcmd.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_rmtpcmd.o moc_rmtpcmd.cpp
 
 moc_gtsclient.o: moc_gtsclient.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_gtsclient.o moc_gtsclient.cpp

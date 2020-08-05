@@ -33,6 +33,20 @@ QByteArray RmtpCmdFixDFParam::GetResponse()
         this->DFBandWidth=rx.cap(1).toInt();
     }
 
+    rx=QRegExp("demodmode=(\\S+),");
+    pos=rx.indexIn(this->cmd);
+    if(pos>-1)
+    {
+        this->DeMode=rx.cap(1);
+    }
+
+    rx=QRegExp("polarization=(\\S+),");
+    pos=rx.indexIn(this->cmd);
+    if(pos>-1)
+    {
+        this->Polar=rx.cap(1);
+    }
+
     QByteArray rs;
     QDataStream out(&rs,QIODevice::ReadWrite);
     out.setByteOrder(QDataStream::LittleEndian);

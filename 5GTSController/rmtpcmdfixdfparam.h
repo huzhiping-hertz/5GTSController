@@ -13,6 +13,8 @@ public:
     double Frequency;
     qint16 IFBandWidth;
     qint16 DFBandWidth;
+    QString DeMode;
+    QString Polar;
 };
 
 #endif // RMTPCMDFIXDFPARAM_H
