@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_RmtpServer_t {
-    QByteArrayData data[12];
-    char stringdata0[178];
+    QByteArrayData data[15];
+    char stringdata0[210];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,14 +40,18 @@ QT_MOC_LITERAL(5, 49, 29), // "shared_ptr<RmtpCmdFixDFParam>"
 QT_MOC_LITERAL(6, 79, 3), // "ptr"
 QT_MOC_LITERAL(7, 83, 22), // "on_newclient_connected"
 QT_MOC_LITERAL(8, 106, 13), // "on_ready_read"
-QT_MOC_LITERAL(9, 120, 16), // "on_state_changed"
-QT_MOC_LITERAL(10, 137, 28), // "QAbstractSocket::SocketState"
-QT_MOC_LITERAL(11, 166, 11) // "socketState"
+QT_MOC_LITERAL(9, 120, 19), // "on_get_monitor_data"
+QT_MOC_LITERAL(10, 140, 6), // "DFData"
+QT_MOC_LITERAL(11, 147, 4), // "data"
+QT_MOC_LITERAL(12, 152, 16), // "on_state_changed"
+QT_MOC_LITERAL(13, 169, 28), // "QAbstractSocket::SocketState"
+QT_MOC_LITERAL(14, 198, 11) // "socketState"
 
     },
     "RmtpServer\0signal_received_cmd\0\0cmd\0"
     "signal_FIXDF\0shared_ptr<RmtpCmdFixDFParam>\0"
     "ptr\0on_newclient_connected\0on_ready_read\0"
+    "on_get_monitor_data\0DFData\0data\0"
     "on_state_changed\0QAbstractSocket::SocketState\0"
     "socketState"
 };
@@ -59,7 +63,7 @@ static const uint qt_meta_data_RmtpServer[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -67,13 +71,14 @@ static const uint qt_meta_data_RmtpServer[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x06 /* Public */,
-       4,    1,   42,    2, 0x06 /* Public */,
+       1,    1,   44,    2, 0x06 /* Public */,
+       4,    1,   47,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       7,    0,   45,    2, 0x0a /* Public */,
-       8,    0,   46,    2, 0x0a /* Public */,
-       9,    1,   47,    2, 0x0a /* Public */,
+       7,    0,   50,    2, 0x0a /* Public */,
+       8,    0,   51,    2, 0x0a /* Public */,
+       9,    1,   52,    2, 0x0a /* Public */,
+      12,    1,   55,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -83,6 +88,7 @@ static const uint qt_meta_data_RmtpServer[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 10,   11,
+    QMetaType::Void, 0x80000000 | 13,   14,
 
        0        // eod
 };
@@ -97,13 +103,14 @@ void RmtpServer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->signal_FIXDF((*reinterpret_cast< shared_ptr<RmtpCmdFixDFParam>(*)>(_a[1]))); break;
         case 2: _t->on_newclient_connected(); break;
         case 3: _t->on_ready_read(); break;
-        case 4: _t->on_state_changed((*reinterpret_cast< QAbstractSocket::SocketState(*)>(_a[1]))); break;
+        case 4: _t->on_get_monitor_data((*reinterpret_cast< DFData(*)>(_a[1]))); break;
+        case 5: _t->on_state_changed((*reinterpret_cast< QAbstractSocket::SocketState(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 4:
+        case 5:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -155,13 +162,13 @@ int RmtpServer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }

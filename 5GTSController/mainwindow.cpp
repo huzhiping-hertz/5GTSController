@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->btnRmtpListen->setDisabled(false);
     ui->btnRmtpStop->setDisabled(true);
+    ui->btnUnlinkDevice->setDisabled(true);
     dial_needle= new QwtDialSimpleNeedle(QwtDialSimpleNeedle::Arrow, true, Qt::yellow, Qt::darkGray);
     ui->DialDegree->setNeedle(dial_needle);
 
@@ -51,7 +52,7 @@ void MainWindow::on_btnLinkDevice_clicked()
     QObject::connect(&gtsClient,SIGNAL(signal_device_disconnected()),this,SLOT(on_device_disconnected()));
     QObject::connect(&gtsClient,SIGNAL(signal_device_response(QString)),this,SLOT(on_device_response(QString)));
     QObject::connect(&dataManager,SIGNAL(signal_received_data(DFData)),this,SLOT(on_device_response_data(DFData)));
-    QObject::connect(&dataManager,SIGNAL(signal_received_data(DFData)),this->rmtpserver,SLOT(on_get_monitor_data(DFData)));
+    QObject::connect(&dataManager,&DataManager::signal_received_data,&rmtpserver,&RmtpServer::on_get_monitor_data);
     QObject::connect(&rmtpserver,SIGNAL(signal_FIXDF(shared_ptr<RmtpCmdFixDFParam>)),this,SLOT(on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam>)));
 
     gtsClient.ConnectDevice(ip,port);
@@ -62,6 +63,7 @@ void MainWindow::on_device_connected()
 {
     ui->txtDeviceResponse->appendPlainText("5GT Device connected...");
     ui->btnLinkDevice->setEnabled(false);
+    ui->btnUnlinkDevice->setEnabled(true);
     //QString rs=this->dataListener.Start(this->gtsClient.tcpsocket.localAddress().toString(),this->gtsClient.tcpsocket.localPort()+1);
     //ui->txtDeviceResponse->appendPlainText(rs);
 }
@@ -217,4 +219,12 @@ void MainWindow::on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam> ptr)
     this->obj.demode=ptr->DeMode;
     this->GetCmdTemplate("startcmd");
     this->SendCmd(0);
+}
+
+void MainWindow::on_btnUnlinkDevice_clicked()
+{
+    this->gtsClient.DisConnectDevice();
+    this->dataManager.DisConnectDevice();
+    ui->btnLinkDevice->setEnabled(true);
+    ui->btnUnlinkDevice->setEnabled(false);
 }

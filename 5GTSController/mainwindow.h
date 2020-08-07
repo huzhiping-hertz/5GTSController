@@ -65,6 +65,8 @@ private slots:
     void on_btnRmtpStop_clicked();
     void on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam>ptr);
 
+    void on_btnUnlinkDevice_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

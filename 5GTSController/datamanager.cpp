@@ -4,6 +4,7 @@
 #include "dataparser.h"
 
 #include <memory>
+#include <QNetworkProxy>
 
 DataManager::DataManager(QObject *parent) : QObject(parent)
 {
@@ -25,6 +26,12 @@ void DataManager::on_received_data()
 bool DataManager::ConnectDevice(QString ip,qint32 port)
 {
     connect(&tcpsocket,SIGNAL(readyRead()), this, SLOT(on_received_data()));
+    this->tcpsocket.setProxy(QNetworkProxy::NoProxy);
     this->tcpsocket.connectToHost(ip,port);
     return true;
+}
+
+void DataManager::DisConnectDevice()
+{
+    this->tcpsocket.disconnectFromHost();
 }

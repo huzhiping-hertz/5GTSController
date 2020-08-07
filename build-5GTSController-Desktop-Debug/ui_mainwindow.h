@@ -68,7 +68,7 @@ public:
     QPushButton *btnStop;
     QLineEdit *txtDataPort;
     QPushButton *btnLinkDevice;
-    QPushButton *pushButton;
+    QPushButton *btnUnlinkDevice;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_3;
     QwtThermo *ThermoLevel;
@@ -263,11 +263,11 @@ public:
 
         gridLayout_2->addWidget(btnLinkDevice, 5, 1, 1, 2);
 
-        pushButton = new QPushButton(groupBox_6);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setMinimumSize(QSize(0, 31));
+        btnUnlinkDevice = new QPushButton(groupBox_6);
+        btnUnlinkDevice->setObjectName(QStringLiteral("btnUnlinkDevice"));
+        btnUnlinkDevice->setMinimumSize(QSize(0, 31));
 
-        gridLayout_2->addWidget(pushButton, 5, 3, 1, 2);
+        gridLayout_2->addWidget(btnUnlinkDevice, 5, 3, 1, 2);
 
 
         verticalLayout_3->addWidget(groupBox_6);
@@ -412,7 +412,7 @@ public:
         btnStop->setText(QApplication::translate("MainWindow", "\345\201\234\346\255\242\346\265\213\350\257\225", Q_NULLPTR));
         txtDataPort->setText(QApplication::translate("MainWindow", "5565", Q_NULLPTR));
         btnLinkDevice->setText(QApplication::translate("MainWindow", "\351\223\276\346\216\245\350\256\276\345\244\207", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("MainWindow", "\346\226\255\345\274\200\351\223\276\346\216\245", Q_NULLPTR));
+        btnUnlinkDevice->setText(QApplication::translate("MainWindow", "\346\226\255\345\274\200\351\223\276\346\216\245", Q_NULLPTR));
         groupBox_2->setTitle(QString());
         label_7->setText(QApplication::translate("MainWindow", "Signal", Q_NULLPTR));
         label_8->setText(QApplication::translate("MainWindow", "Level dBuV/m", Q_NULLPTR));

@@ -298,7 +298,7 @@
            </widget>
           </item>
           <item row="5" column="3" colspan="2">
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="btnUnlinkDevice">
             <property name="minimumSize">
              <size>
               <width>0</width>

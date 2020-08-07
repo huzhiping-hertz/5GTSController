@@ -15,6 +15,7 @@ public :
 public:
     explicit GtsClient(QObject *parent = nullptr);
     bool ConnectDevice(QString ip , qint32 port);
+    void DisConnectDevice();
     QString SendCmd(QByteArray rs);
 signals:
     void signal_device_disconnected();

@@ -16,7 +16,7 @@ public:
     explicit DataManager(QObject *parent = nullptr);
 
     bool ConnectDevice(QString ip,qint32 port);
-
+    void DisConnectDevice();
 signals:
     void signal_received_data(DFData);
 public slots:

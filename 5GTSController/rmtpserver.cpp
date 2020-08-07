@@ -8,11 +8,16 @@
 #include <QHostAddress>
 #include <QAbstractSocket>
 #include <string>
+#include <QDataStream>
+#include <QByteArray>
+#include <QDateTime>
+#include <QFloat16>
+
 using namespace  std;
 
 RmtpServer::RmtpServer(QObject *parent) : QObject(parent)
 {
-
+    this->socketPtr=nullptr;
 }
 
 QString RmtpServer::Start(QString ip,qint32 port)
@@ -81,15 +86,31 @@ void RmtpServer::on_get_monitor_data(DFData data)
     qint8 min=now.time().minute();
     qint8 second=now.time().second();
     qint16 milisecond=1;
-    qint8 dataType=0;
+    qint8 dataType=6;
 
-    QByteArray data("RESULT:SUCCESSED;CID:;PRI:1;FUNC:;Info: FIXDF command received.");
+    QByteArray rsdata("RESULT:SUCCESSED;CID:;PRI:1;FUNC:;Info: FIXDF command received.");
     //short crc=qChecksum(data.toStdString().c_str(),data.length(),Qt::ChecksumItuV41);
-    short framelength=data.length()+12;
+    short framelength=41+12;
 
-    out<<0xeeeeeeee<<framelength<<year<<month<<day<<hour<<min<<second<<milisecond<<dataType;
-    rs.append(data);
-    socketPtr->write(rs.toStdString().c_str(),rs.length());
+    qint8 nFuncKind=3;
+    qint64 frequency=data.frequency;
+    qfloat16 rclevel=data.strength;
+    qfloat16 dflevel=data.strength;
+    qfloat16 quality=data.quality;
+    qfloat16 degeree=data.bearing;
+    qfloat16 angle=0;
+    qfloat16 compass=0;
+    qfloat16 latitude=0;
+    qfloat16 longtitude=0;
+
+    out<<0xeeeeeeee<<framelength<<year<<month<<day<<hour<<min<<second<<milisecond<<dataType<<nFuncKind<<frequency<<rclevel<<dflevel<<quality
+      <<degeree<<angle<<compass<<latitude<<longtitude;
+    //rs.append(rsdata);
+
+    if(this->socketPtr!=nullptr)
+    {
+        socketPtr->write(rs.toStdString().c_str(),rs.length());
+    }
 }
 
 void RmtpServer::on_state_changed(QAbstractSocket::SocketState socketState)

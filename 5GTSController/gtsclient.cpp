@@ -2,6 +2,7 @@
 #include "gtscmdfactory.h"
 
 #include <QDebug>
+#include <QNetworkProxy>
 
 GtsClient::GtsClient(QObject *parent) : QObject(parent)
 {
@@ -12,8 +13,14 @@ bool GtsClient::ConnectDevice(QString ip, qint32 port)
 {
     connect(&tcpsocket, SIGNAL(readyRead()), this, SLOT(on_ready_read()));
     connect(&tcpsocket,SIGNAL(stateChanged(QAbstractSocket::SocketState)),this,SLOT(on_state_change(QAbstractSocket::SocketState)));
+    this->tcpsocket.setProxy(QNetworkProxy::NoProxy);
     this->tcpsocket.connectToHost(ip,port);
     return true;
+}
+
+void GtsClient::DisConnectDevice()
+{
+    this->tcpsocket.disconnectFromHost();
 }
 
  QString GtsClient::SendCmd(QByteArray rs)
