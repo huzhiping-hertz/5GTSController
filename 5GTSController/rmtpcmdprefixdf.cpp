@@ -6,7 +6,8 @@ RmtpCmdPreFixDF::RmtpCmdPreFixDF(QString cmd)
 
 }
 
-QByteArray RmtpCmdPreFixDF::GetResponse()
+void RmtpCmdPreFixDF::Response(QTcpSocket* socketPtr)
 {
-    return QByteArray("RESULT:SUCCESSED;Info: prefixdf command\n");
+    QByteArray rs("RESULT:SUCCESSED;Info: prefixdf command\n");
+    socketPtr->write(rs.toStdString().c_str(),rs.length());
 }

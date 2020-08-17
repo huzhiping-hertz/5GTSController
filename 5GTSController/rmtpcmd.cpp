@@ -7,10 +7,9 @@ RmtpCmd::RmtpCmd()
 
 }
 
-QByteArray RmtpCmd::GetResponse()
+void RmtpCmd::Response(QTcpSocket* socketPtr)
 {
-    QByteArray rs;
-    return rs;
+
 }
 
 QString RmtpCmd::CmdParse(QByteArray cmdstr)

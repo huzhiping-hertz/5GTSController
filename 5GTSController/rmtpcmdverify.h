@@ -7,7 +7,7 @@ class RmtpCmdVerify:public RmtpCmd
 {
 public:
     RmtpCmdVerify(QString cmd);
-    QByteArray GetResponse();
+    void Response(QTcpSocket* socketPtr);
 };
 
 #endif // GTSCMDVERIFY_H

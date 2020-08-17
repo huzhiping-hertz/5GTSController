@@ -7,7 +7,8 @@ RmtpCmdVerify::RmtpCmdVerify(QString cmd)
 
 }
 
-QByteArray RmtpCmdVerify::GetResponse()
+void RmtpCmdVerify::Response(QTcpSocket* socketPtr)
 {
-    return QByteArray("RMTP:VERIF:+OK\n");
+    QByteArray rs("RMTP:VERIF:+OK\n");
+    socketPtr->write(rs.toStdString().c_str(),rs.length());
 }

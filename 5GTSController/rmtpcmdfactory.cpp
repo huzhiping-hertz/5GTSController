@@ -4,6 +4,8 @@
 #include "rmtpcmderror.h"
 #include "rmtpcmdprefixdf.h"
 #include "rmtpcmdfixdfparam.h"
+#include "rmtpcmdstop.h"
+
 #include <memory>
 
 using namespace std;
@@ -29,6 +31,10 @@ shared_ptr<RmtpCmd> RmtpCmdFactory::CreateCmd(QString cmdParameter)
     else if(cmdParameter.contains("PARAM"))
     {
         return shared_ptr<RmtpCmd>(new RmtpCmdFixDFParam(cmdParameter));
+    }
+    else if(cmdParameter.contains("RSTOP"))
+    {
+        return shared_ptr<RmtpCmd>(new RmtpCmdStop(cmdParameter));
     }
     else
     {

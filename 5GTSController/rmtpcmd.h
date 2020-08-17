@@ -1,12 +1,13 @@
 #ifndef RMTPCMD_H
 #define RMTPCMD_H
 #include <QString>
+#include <QTcpSocket>
 
 class RmtpCmd
 {
 public:
     RmtpCmd();
-    virtual QByteArray GetResponse();
+    virtual void Response(QTcpSocket* socketPtr);
 
     QString CmdParse(QByteArray cmdstr);
     QString ResponseConnected();

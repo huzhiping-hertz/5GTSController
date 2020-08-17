@@ -3,6 +3,7 @@
 #include "rmtpcmdfactory.h"
 #include "rmtpcmdfixdfparam.h"
 #include "gtsclient.h"
+#include "rmtpcmdstop.h"
 
 #include <QDebug>
 #include <QHostAddress>
@@ -60,13 +61,19 @@ void RmtpServer::on_ready_read()
     //Convert to JSON
     RmtpCmdFactory factory;
     shared_ptr<RmtpCmd> cmdptr=factory.CreateCmd(QString(datas));
-    QByteArray rs=cmdptr->GetResponse();
-    socketPtr->write(rs.toStdString().c_str(),rs.length());
+    cmdptr->Response(socketPtr);
+    //socketPtr->write(rs.toStdString().c_str(),rs.length());
 
     auto ptr=dynamic_pointer_cast<RmtpCmdFixDFParam>(cmdptr);
     if(ptr!=NULL)
     {
         emit signal_FIXDF(ptr);
+    }
+
+    auto stopptr=dynamic_pointer_cast<RmtpCmdStop>(cmdptr);
+    if(stopptr!=NULL)
+    {
+        emit signal_STOP();
     }
 
 }
@@ -86,31 +93,41 @@ void RmtpServer::on_get_monitor_data(DFData data)
     qint8 min=now.time().minute();
     qint8 second=now.time().second();
     qint16 milisecond=1;
-    qint8 dataType=6;
+    qint8 dataType=0;
 
-    QByteArray rsdata("RESULT:SUCCESSED;CID:;PRI:1;FUNC:;Info: FIXDF command received.");
-    //short crc=qChecksum(data.toStdString().c_str(),data.length(),Qt::ChecksumItuV41);
-    short framelength=41+12;
+    short framelength=24+12;
 
-    qint8 nFuncKind=3;
-    qint64 frequency=data.frequency;
-    qfloat16 rclevel=data.strength;
-    qfloat16 dflevel=data.strength;
-    qfloat16 quality=data.quality;
-    qfloat16 degeree=data.bearing;
-    qfloat16 angle=0;
-    qfloat16 compass=0;
-    qfloat16 latitude=0;
-    qfloat16 longtitude=0;
+    float rclevel=data.level;
+    float dflevel=data.level;
+    float quality=data.quality;
+    float degeree=data.bearing;
+    float angle=0;
+    float compass=0;
 
-    out<<0xeeeeeeee<<framelength<<year<<month<<day<<hour<<min<<second<<milisecond<<dataType<<nFuncKind<<frequency<<rclevel<<dflevel<<quality
-      <<degeree<<angle<<compass<<latitude<<longtitude;
-    //rs.append(rsdata);
-
+    out.setFloatingPointPrecision(QDataStream::SinglePrecision);
+    out<<0xeeeeeeee<<framelength<<year<<month<<day<<hour<<min<<second<<milisecond<<dataType<<rclevel<<dflevel<<quality
+      <<degeree<<angle<<compass;
     if(this->socketPtr!=nullptr)
     {
-        socketPtr->write(rs.toStdString().c_str(),rs.length());
+        socketPtr->write(rs.toStdString().c_str(),framelength+4);
     }
+
+//    QByteArray rsposition;
+//    QDataStream outposition(&rsposition,QIODevice::ReadWrite);
+//    outposition.setByteOrder(QDataStream::LittleEndian);
+//    outposition.setFloatingPointPrecision(QDataStream::SinglePrecision);
+
+//    framelength=8+12;
+//    qint8 dtype=3;
+//    float latitude=0;
+//    float longtitude=0;
+
+//    outposition<<0xeeeeeeee<<framelength<<year<<month<<day<<hour<<min<<second<<milisecond<<dtype<<latitude<<longtitude;
+
+//    if(this->socketPtr!=nullptr)
+//    {
+//        socketPtr->write(rsposition.toStdString().c_str(),framelength+4);
+//    }
 }
 
 void RmtpServer::on_state_changed(QAbstractSocket::SocketState socketState)
@@ -119,5 +136,6 @@ void RmtpServer::on_state_changed(QAbstractSocket::SocketState socketState)
     {
         QTcpSocket* sender = static_cast<QTcpSocket*>(QObject::sender());
         clientSocketList.removeOne(sender);
+        emit signal_STOP();
     }
 }

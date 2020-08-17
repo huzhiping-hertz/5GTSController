@@ -54,6 +54,7 @@ void MainWindow::on_btnLinkDevice_clicked()
     QObject::connect(&dataManager,SIGNAL(signal_received_data(DFData)),this,SLOT(on_device_response_data(DFData)));
     QObject::connect(&dataManager,&DataManager::signal_received_data,&rmtpserver,&RmtpServer::on_get_monitor_data);
     QObject::connect(&rmtpserver,SIGNAL(signal_FIXDF(shared_ptr<RmtpCmdFixDFParam>)),this,SLOT(on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam>)));
+    QObject::connect(&rmtpserver,SIGNAL(signal_STOP()),this,SLOT(on_rmtpserver_stop()));
 
     gtsClient.ConnectDevice(ip,port);
     dataManager.ConnectDevice(ip,dataPort);
@@ -170,9 +171,10 @@ void MainWindow::on_rmtpserver_receivedcmd(QString cmd)
 {
     ui->txtDeviceResponse->setPlainText(cmd);
     ui->txtDeviceResponse->setPlainText(cmd);
-    RmtpCmdFactory factory;
-    shared_ptr<RmtpCmd> cmdptr=factory.CreateCmd(cmd);
-    this->gtsClient.SendCmd(cmdptr->GetResponse());
+//    RmtpCmdFactory factory;
+//    shared_ptr<RmtpCmd> cmdptr=factory.CreateCmd(cmd);
+
+//    this->gtsClient.SendCmd(cmdptr->Response());
 }
 
 void MainWindow::on_btnOptimize_clicked()
@@ -218,6 +220,12 @@ void MainWindow::on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam> ptr)
     this->obj.dfpan=ptr->DFBandWidth;
     this->obj.demode=ptr->DeMode;
     this->GetCmdTemplate("startcmd");
+    this->SendCmd(0);
+}
+
+void MainWindow::on_rmtpserver_stop()
+{
+    this->GetCmdTemplate("stopcmd");
     this->SendCmd(0);
 }
 

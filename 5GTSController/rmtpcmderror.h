@@ -8,7 +8,7 @@ class RmtpCmdError : public RmtpCmd
 {
 public:
     RmtpCmdError(QString cmd);
-    QByteArray GetResponse();
+    void Response(QTcpSocket* socketPtr);
 };
 
 #endif // RMTPCMDERROR_H

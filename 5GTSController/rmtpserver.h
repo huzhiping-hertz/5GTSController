@@ -28,6 +28,7 @@ public:
 signals:
     void signal_received_cmd(QString cmd);
     void signal_FIXDF(shared_ptr<RmtpCmdFixDFParam> ptr);
+    void signal_STOP();
 
 public slots:
     void on_newclient_connected();

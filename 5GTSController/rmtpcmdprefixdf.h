@@ -6,7 +6,7 @@ class RmtpCmdPreFixDF : public RmtpCmd
 {
 public:
     RmtpCmdPreFixDF(QString cmd);
-    QByteArray GetResponse();
+    void Response(QTcpSocket* socketPtr);
 };
 
 #endif // RMTPCMDPREFIXDF_H

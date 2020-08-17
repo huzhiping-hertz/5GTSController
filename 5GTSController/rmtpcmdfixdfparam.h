@@ -9,7 +9,7 @@ class RmtpCmdFixDFParam : public RmtpCmd
 {
 public:
     RmtpCmdFixDFParam(QString cmd);
-    QByteArray GetResponse();
+    void Response(QTcpSocket* socketPtr);
     double Frequency;
     qint16 IFBandWidth;
     qint16 DFBandWidth;

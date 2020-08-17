@@ -1,17 +1,12 @@
 #ifndef RMTPCMDSTOP_H
 #define RMTPCMDSTOP_H
+#include "rmtpcmd.h"
 
-#include <QObject>
-
-class RmtpCmdStop : public QObject
+class RmtpCmdStop:public RmtpCmd
 {
-    Q_OBJECT
 public:
-    explicit RmtpCmdStop(QObject *parent = nullptr);
-
-signals:
-
-public slots:
+    RmtpCmdStop(QString cmd);
+    void Response(QTcpSocket* socketPtr);
 };
 
 #endif // RMTPCMDSTOP_H

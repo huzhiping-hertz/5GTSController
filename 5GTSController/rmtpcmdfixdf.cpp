@@ -10,7 +10,7 @@ RmtpCmdFIXDF::RmtpCmdFIXDF(QString cmd)
     this->cmd=cmd;
 }
 
-QByteArray RmtpCmdFIXDF::GetResponse()
+void RmtpCmdFIXDF::Response(QTcpSocket* socketPtr)
 {
     QByteArray rs;
     QDataStream out(&rs,QIODevice::ReadWrite);
@@ -34,5 +34,5 @@ QByteArray RmtpCmdFIXDF::GetResponse()
 
     out<<0xeeeeeeee<<framelength<<year<<month<<day<<hour<<min<<second<<milisecond<<dataType;
     rs.append(data);
-    return rs;
+    socketPtr->write(rs.toStdString().c_str(),rs.length());
 }

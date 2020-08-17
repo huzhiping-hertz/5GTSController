@@ -5,7 +5,8 @@ RmtpCmdError::RmtpCmdError(QString cmd)
 
 }
 
-QByteArray RmtpCmdError::GetResponse()
+void RmtpCmdError::Response(QTcpSocket* socketPtr)
 {
-    return QByteArray("RESULT:FAILURE;Info:UnSupported this command\n");
+    QByteArray rs("RESULT:FAILURE;Info:UnSupported this command\n");
+    socketPtr->write(rs.toStdString().c_str(),rs.length());
 }

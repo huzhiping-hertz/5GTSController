@@ -8,7 +8,7 @@ class RmtpCmdFIXDF:public RmtpCmd
 {
 public:
     RmtpCmdFIXDF(QString cmd);
-    QByteArray GetResponse();
+    void Response(QTcpSocket* socketPtr);
 };
 
 #endif // GTSCMDFIXDF_H
