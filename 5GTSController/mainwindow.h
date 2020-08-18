@@ -12,19 +12,15 @@
 #include "rmtpcmdfixdfparam.h"
 #include <memory>
 #include "qwt_dial_needle.h"
+#include "atennainfo.h"
+#include "paramobj.h"
+
 using namespace std;
 
 namespace Ui {
 class MainWindow;
 }
 
-struct paramObj
-{
-    qreal frequency;
-    qint32 ifpan;
-    qint32 dfpan;
-    QString demode;
-};
 
 class MainWindow : public QMainWindow
 {
@@ -36,15 +32,17 @@ private:
     DataListener dataListener;
     OptObj optObj;
     QList<QString> cmdList;
+    QList<AtennaInfo> atennas;
     int cmdIndex=0;
     QwtDialNeedle *dial_needle;
-    paramObj obj;
+    ParamObj obj;
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private:
     void SendCmd(int i);
     void GetCmdTemplate(QString filename);
+    void SetAtennaInfo();
 private slots:
 
     void on_btnLinkDevice_clicked();

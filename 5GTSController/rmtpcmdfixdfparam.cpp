@@ -34,6 +34,7 @@ void RmtpCmdFixDFParam::Response(QTcpSocket* socketPtr)
     }
 
     rx=QRegExp("demodmode=(\\S+),");
+    rx.setMinimal(true);
     pos=rx.indexIn(this->cmd);
     if(pos>-1)
     {
@@ -41,6 +42,7 @@ void RmtpCmdFixDFParam::Response(QTcpSocket* socketPtr)
     }
 
     rx=QRegExp("polarization=(\\S+),");
+    rx.setMinimal(true);
     pos=rx.indexIn(this->cmd);
     if(pos>-1)
     {

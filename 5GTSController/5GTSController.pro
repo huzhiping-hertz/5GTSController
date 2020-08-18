@@ -39,7 +39,9 @@ SOURCES += \
     rmtpcmdprefixdf.cpp \
     rmtpcmdfixdfparam.cpp \
     rmtpcmdstop.cpp \
-    fixdfcmdparam.cpp
+    fixdfcmdparam.cpp \
+    atennainfo.cpp \
+    paramobj.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -66,7 +68,9 @@ HEADERS += \
     rmtpcmdprefixdf.h \
     rmtpcmdfixdfparam.h \
     rmtpcmdstop.h \
-    fixdfcmdparam.h
+    fixdfcmdparam.h \
+    atennainfo.h \
+    paramobj.h
 
 FORMS += \
         mainwindow.ui

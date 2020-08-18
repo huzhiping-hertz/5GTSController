@@ -51,6 +51,8 @@ public:
     QPushButton *btnRmtpStop;
     QGroupBox *groupBox_6;
     QGridLayout *gridLayout_2;
+    QPushButton *btnLinkDevice;
+    QPushButton *btnStop;
     QLineEdit *txtDeviceIp;
     QLabel *label;
     QLabel *label_12;
@@ -63,12 +65,12 @@ public:
     QLineEdit *txtFreq;
     QLabel *label_13;
     QLineEdit *txtIFBW;
-    QPushButton *btnOptimize;
+    QLabel *label_5;
+    QLabel *label_15;
+    QComboBox *cbAtenna;
+    QComboBox *cbPolar;
     QPushButton *btnSendCmd;
-    QPushButton *btnStop;
-    QLineEdit *txtDataPort;
-    QPushButton *btnLinkDevice;
-    QPushButton *btnUnlinkDevice;
+    QPushButton *btnOptimize;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_3;
     QwtThermo *ThermoLevel;
@@ -168,6 +170,17 @@ public:
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setHorizontalSpacing(6);
+        btnLinkDevice = new QPushButton(groupBox_6);
+        btnLinkDevice->setObjectName(QStringLiteral("btnLinkDevice"));
+        btnLinkDevice->setMinimumSize(QSize(0, 31));
+
+        gridLayout_2->addWidget(btnLinkDevice, 0, 6, 1, 1);
+
+        btnStop = new QPushButton(groupBox_6);
+        btnStop->setObjectName(QStringLiteral("btnStop"));
+
+        gridLayout_2->addWidget(btnStop, 6, 6, 1, 1);
+
         txtDeviceIp = new QLineEdit(groupBox_6);
         txtDeviceIp->setObjectName(QStringLiteral("txtDeviceIp"));
         txtDeviceIp->setMinimumSize(QSize(100, 28));
@@ -184,7 +197,7 @@ public:
         label_12 = new QLabel(groupBox_6);
         label_12->setObjectName(QStringLiteral("label_12"));
 
-        gridLayout_2->addWidget(label_12, 6, 1, 1, 1);
+        gridLayout_2->addWidget(label_12, 5, 1, 1, 1);
 
         label_4 = new QLabel(groupBox_6);
         label_4->setObjectName(QStringLiteral("label_4"));
@@ -196,78 +209,74 @@ public:
         txtDevicePort->setMinimumSize(QSize(0, 28));
         txtDevicePort->setMaximumSize(QSize(16777215, 16777215));
 
-        gridLayout_2->addWidget(txtDevicePort, 0, 4, 1, 1);
+        gridLayout_2->addWidget(txtDevicePort, 0, 5, 1, 1);
 
         txtDFBW = new QLineEdit(groupBox_6);
         txtDFBW->setObjectName(QStringLiteral("txtDFBW"));
 
-        gridLayout_2->addWidget(txtDFBW, 7, 2, 1, 1);
+        gridLayout_2->addWidget(txtDFBW, 6, 2, 1, 1);
 
         label_11 = new QLabel(groupBox_6);
         label_11->setObjectName(QStringLiteral("label_11"));
 
-        gridLayout_2->addWidget(label_11, 7, 3, 1, 1);
+        gridLayout_2->addWidget(label_11, 6, 3, 1, 1);
 
         combDeMode = new QComboBox(groupBox_6);
         combDeMode->setObjectName(QStringLiteral("combDeMode"));
 
-        gridLayout_2->addWidget(combDeMode, 7, 4, 1, 1);
+        gridLayout_2->addWidget(combDeMode, 6, 5, 1, 1);
 
         label_14 = new QLabel(groupBox_6);
         label_14->setObjectName(QStringLiteral("label_14"));
 
-        gridLayout_2->addWidget(label_14, 7, 1, 1, 1);
+        gridLayout_2->addWidget(label_14, 6, 1, 1, 1);
 
         txtFreq = new QLineEdit(groupBox_6);
         txtFreq->setObjectName(QStringLiteral("txtFreq"));
 
-        gridLayout_2->addWidget(txtFreq, 6, 2, 1, 1);
+        gridLayout_2->addWidget(txtFreq, 5, 2, 1, 1);
 
         label_13 = new QLabel(groupBox_6);
         label_13->setObjectName(QStringLiteral("label_13"));
 
-        gridLayout_2->addWidget(label_13, 6, 3, 1, 1);
+        gridLayout_2->addWidget(label_13, 5, 3, 1, 1);
 
         txtIFBW = new QLineEdit(groupBox_6);
         txtIFBW->setObjectName(QStringLiteral("txtIFBW"));
 
-        gridLayout_2->addWidget(txtIFBW, 6, 4, 1, 1);
+        gridLayout_2->addWidget(txtIFBW, 5, 5, 1, 1);
 
-        btnOptimize = new QPushButton(groupBox_6);
-        btnOptimize->setObjectName(QStringLiteral("btnOptimize"));
-        btnOptimize->setMinimumSize(QSize(0, 31));
+        label_5 = new QLabel(groupBox_6);
+        label_5->setObjectName(QStringLiteral("label_5"));
 
-        gridLayout_2->addWidget(btnOptimize, 5, 5, 1, 4);
+        gridLayout_2->addWidget(label_5, 7, 1, 1, 1);
+
+        label_15 = new QLabel(groupBox_6);
+        label_15->setObjectName(QStringLiteral("label_15"));
+
+        gridLayout_2->addWidget(label_15, 7, 3, 1, 1);
+
+        cbAtenna = new QComboBox(groupBox_6);
+        cbAtenna->setObjectName(QStringLiteral("cbAtenna"));
+
+        gridLayout_2->addWidget(cbAtenna, 7, 2, 1, 1);
+
+        cbPolar = new QComboBox(groupBox_6);
+        cbPolar->setObjectName(QStringLiteral("cbPolar"));
+
+        gridLayout_2->addWidget(cbPolar, 7, 5, 1, 1);
 
         btnSendCmd = new QPushButton(groupBox_6);
         btnSendCmd->setObjectName(QStringLiteral("btnSendCmd"));
         btnSendCmd->setMinimumSize(QSize(0, 31));
 
-        gridLayout_2->addWidget(btnSendCmd, 6, 5, 1, 4);
+        gridLayout_2->addWidget(btnSendCmd, 5, 6, 1, 1);
 
-        btnStop = new QPushButton(groupBox_6);
-        btnStop->setObjectName(QStringLiteral("btnStop"));
+        btnOptimize = new QPushButton(groupBox_6);
+        btnOptimize->setObjectName(QStringLiteral("btnOptimize"));
+        btnOptimize->setMinimumSize(QSize(0, 31));
 
-        gridLayout_2->addWidget(btnStop, 7, 5, 1, 4);
-
-        txtDataPort = new QLineEdit(groupBox_6);
-        txtDataPort->setObjectName(QStringLiteral("txtDataPort"));
-        txtDataPort->setMinimumSize(QSize(0, 28));
-        txtDataPort->setMaximumSize(QSize(16777215, 16777215));
-
-        gridLayout_2->addWidget(txtDataPort, 0, 5, 1, 4);
-
-        btnLinkDevice = new QPushButton(groupBox_6);
-        btnLinkDevice->setObjectName(QStringLiteral("btnLinkDevice"));
-        btnLinkDevice->setMinimumSize(QSize(0, 31));
-
-        gridLayout_2->addWidget(btnLinkDevice, 5, 1, 1, 2);
-
-        btnUnlinkDevice = new QPushButton(groupBox_6);
-        btnUnlinkDevice->setObjectName(QStringLiteral("btnUnlinkDevice"));
-        btnUnlinkDevice->setMinimumSize(QSize(0, 31));
-
-        gridLayout_2->addWidget(btnUnlinkDevice, 5, 3, 1, 2);
+        gridLayout_2->addWidget(btnOptimize, 7, 6, 1, 1);
 
 
         verticalLayout_3->addWidget(groupBox_6);
@@ -320,9 +329,10 @@ public:
         DialDegree->setStyleSheet(QStringLiteral("color: rgb(32, 74, 135);"));
         DialDegree->setUpperBound(360);
         DialDegree->setScaleMaxMajor(30);
-        DialDegree->setScaleMaxMinor(5);
-        DialDegree->setScaleStepSize(0);
+        DialDegree->setScaleMaxMinor(6);
+        DialDegree->setScaleStepSize(30);
         DialDegree->setTotalSteps(120u);
+        DialDegree->setPageSteps(10u);
         DialDegree->setLineWidth(4);
         DialDegree->setMode(QwtDial::RotateNeedle);
         DialDegree->setOrigin(0);
@@ -391,11 +401,13 @@ public:
         btnRmtpListen->setText(QApplication::translate("MainWindow", "\345\274\200\345\247\213\347\233\221\345\220\254", Q_NULLPTR));
         btnRmtpStop->setText(QApplication::translate("MainWindow", "\345\201\234\346\255\242\347\233\221\345\220\254", Q_NULLPTR));
         groupBox_6->setTitle(QApplication::translate("MainWindow", "5GTS \350\256\276\345\244\207\351\205\215\347\275\256", Q_NULLPTR));
+        btnLinkDevice->setText(QApplication::translate("MainWindow", "\351\223\276\346\216\245\350\256\276\345\244\207", Q_NULLPTR));
+        btnStop->setText(QApplication::translate("MainWindow", "\345\201\234\346\255\242\346\265\213\350\257\225", Q_NULLPTR));
         txtDeviceIp->setText(QApplication::translate("MainWindow", "172.25.69.184", Q_NULLPTR));
         label->setText(QApplication::translate("MainWindow", "IP", Q_NULLPTR));
         label_12->setText(QApplication::translate("MainWindow", "\351\242\221\347\216\207(MHz)", Q_NULLPTR));
-        label_4->setText(QApplication::translate("MainWindow", "\346\216\247\345\210\266\347\253\257\345\217\243", Q_NULLPTR));
-        txtDevicePort->setText(QApplication::translate("MainWindow", "5563", Q_NULLPTR));
+        label_4->setText(QApplication::translate("MainWindow", "BasePort", Q_NULLPTR));
+        txtDevicePort->setText(QApplication::translate("MainWindow", "5555", Q_NULLPTR));
         txtDFBW->setText(QApplication::translate("MainWindow", "25", Q_NULLPTR));
         label_11->setText(QApplication::translate("MainWindow", "\350\247\243\350\260\203", Q_NULLPTR));
         combDeMode->clear();
@@ -407,12 +419,15 @@ public:
         txtFreq->setText(QApplication::translate("MainWindow", "1846.9", Q_NULLPTR));
         label_13->setText(QApplication::translate("MainWindow", "\344\270\255\351\242\221\345\270\246\345\256\275(kHz)", Q_NULLPTR));
         txtIFBW->setText(QApplication::translate("MainWindow", "25", Q_NULLPTR));
-        btnOptimize->setText(QApplication::translate("MainWindow", "\346\225\260\346\215\256\346\240\241\345\207\206", Q_NULLPTR));
+        label_5->setText(QApplication::translate("MainWindow", "\345\244\251\347\272\277", Q_NULLPTR));
+        label_15->setText(QApplication::translate("MainWindow", "\346\236\201\345\214\226\346\226\271\345\274\217", Q_NULLPTR));
+        cbPolar->clear();
+        cbPolar->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "VERTICAL", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "HORIZONTAL", Q_NULLPTR)
+        );
         btnSendCmd->setText(QApplication::translate("MainWindow", "\346\265\213\350\257\225\346\265\213\345\220\221", Q_NULLPTR));
-        btnStop->setText(QApplication::translate("MainWindow", "\345\201\234\346\255\242\346\265\213\350\257\225", Q_NULLPTR));
-        txtDataPort->setText(QApplication::translate("MainWindow", "5565", Q_NULLPTR));
-        btnLinkDevice->setText(QApplication::translate("MainWindow", "\351\223\276\346\216\245\350\256\276\345\244\207", Q_NULLPTR));
-        btnUnlinkDevice->setText(QApplication::translate("MainWindow", "\346\226\255\345\274\200\351\223\276\346\216\245", Q_NULLPTR));
+        btnOptimize->setText(QApplication::translate("MainWindow", "\346\225\260\346\215\256\346\240\241\345\207\206", Q_NULLPTR));
         groupBox_2->setTitle(QString());
         label_7->setText(QApplication::translate("MainWindow", "Signal", Q_NULLPTR));
         label_8->setText(QApplication::translate("MainWindow", "Level dBuV/m", Q_NULLPTR));

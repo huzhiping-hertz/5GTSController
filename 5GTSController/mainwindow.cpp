@@ -18,9 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->btnRmtpListen->setDisabled(false);
-    ui->btnRmtpStop->setDisabled(true);
-    ui->btnUnlinkDevice->setDisabled(true);
     dial_needle= new QwtDialSimpleNeedle(QwtDialSimpleNeedle::Arrow, true, Qt::yellow, Qt::darkGray);
     ui->DialDegree->setNeedle(dial_needle);
 
@@ -31,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lcdSignal->setPalette(Qt::green);
 
     ui->ThermoLevel->setFillBrush(QBrush(Qt::blue));
-
+    SetAtennaInfo();
 
     //ui->txtDeviceCmd->setPlainText(QSysInfo::buildAbi());
 }
@@ -47,26 +44,23 @@ void MainWindow::on_btnLinkDevice_clicked()
 {
     QString ip = ui->txtDeviceIp->text();
     qint32 port=ui->txtDevicePort->text().toInt();
-    qint32 dataPort=ui->txtDataPort->text().toInt();
     QObject::connect(&gtsClient,SIGNAL(signal_device_connected()),this,SLOT(on_device_connected()));
     QObject::connect(&gtsClient,SIGNAL(signal_device_disconnected()),this,SLOT(on_device_disconnected()));
     QObject::connect(&gtsClient,SIGNAL(signal_device_response(QString)),this,SLOT(on_device_response(QString)));
     QObject::connect(&dataManager,SIGNAL(signal_received_data(DFData)),this,SLOT(on_device_response_data(DFData)));
     QObject::connect(&dataManager,&DataManager::signal_received_data,&rmtpserver,&RmtpServer::on_get_monitor_data);
+
     QObject::connect(&rmtpserver,SIGNAL(signal_FIXDF(shared_ptr<RmtpCmdFixDFParam>)),this,SLOT(on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam>)));
     QObject::connect(&rmtpserver,SIGNAL(signal_STOP()),this,SLOT(on_rmtpserver_stop()));
 
-    gtsClient.ConnectDevice(ip,port);
-    dataManager.ConnectDevice(ip,dataPort);
+    gtsClient.ConnectDevice(ip,port+8);
+    dataManager.ConnectDevice(ip,port+10);
 }
 
 void MainWindow::on_device_connected()
 {
     ui->txtDeviceResponse->appendPlainText("5GT Device connected...");
     ui->btnLinkDevice->setEnabled(false);
-    ui->btnUnlinkDevice->setEnabled(true);
-    //QString rs=this->dataListener.Start(this->gtsClient.tcpsocket.localAddress().toString(),this->gtsClient.tcpsocket.localPort()+1);
-    //ui->txtDeviceResponse->appendPlainText(rs);
 }
 
 void MainWindow::GetCmdTemplate(QString filename)
@@ -94,6 +88,10 @@ void MainWindow::GetCmdTemplate(QString filename)
         line.replace("@frequency",QString::number(obj.frequency*1000000,'f',0));
         line.replace("@ifpan",QString::number(obj.ifpan));
         line.replace("@dfpan",QString::number(obj.dfpan));
+        line.replace("@antenna",obj.antenna);
+        line.replace("@freqBegin",QString::number(obj.freqBegin));
+        line.replace("@freqEnd",QString::number(obj.freqEnd));
+        line.replace("@polorization",obj.polorization);
         line.replace("@mode",obj.demode);
         this->cmdList.push_back(line);
     }
@@ -137,6 +135,8 @@ void MainWindow::on_btnSendCmd_clicked()
     this->obj.ifpan=ui->txtIFBW->text().toInt();
     this->obj.dfpan=ui->txtDFBW->text().toInt();
     this->obj.demode=ui->combDeMode->currentText();
+    this->obj.polorization=ui->cbPolar->currentText();
+    this->obj.SelectAntenna(this->atennas);
     this->GetCmdTemplate("startcmd");
     this->SendCmd(0);
 }
@@ -204,6 +204,29 @@ void MainWindow::on_btnOptimize_clicked()
     }
 }
 
+void MainWindow::SetAtennaInfo()
+{
+    QSqlDatabase database =QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("opt");
+    if(database.open())
+    {
+        QSqlQuery query;
+        query.prepare("select * from Atenna");
+        if(query.exec())
+        {
+            while (query.next()) {
+                     AtennaInfo atenna ;
+                     atenna.AtennaName = query.value(0).toString();
+                     atenna.FreqMin = query.value(1).toLongLong();
+                     atenna.FreqMax=query.value(2).toLongLong();
+                     atennas.push_back(atenna);
+                     this->ui->cbAtenna->addItem(atenna.AtennaName);
+                 }
+        }
+
+    }
+}
+
 
 void MainWindow::on_btnRmtpStop_clicked()
 {
@@ -219,6 +242,8 @@ void MainWindow::on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam> ptr)
     this->obj.ifpan=ptr->IFBandWidth;
     this->obj.dfpan=ptr->DFBandWidth;
     this->obj.demode=ptr->DeMode;
+    this->obj.polorization=ptr->Polar;
+    this->obj.SelectAntenna(this->atennas);
     this->GetCmdTemplate("startcmd");
     this->SendCmd(0);
 }
@@ -234,5 +259,4 @@ void MainWindow::on_btnUnlinkDevice_clicked()
     this->gtsClient.DisConnectDevice();
     this->dataManager.DisConnectDevice();
     ui->btnLinkDevice->setEnabled(true);
-    ui->btnUnlinkDevice->setEnabled(false);
 }

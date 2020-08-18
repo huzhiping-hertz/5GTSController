@@ -111,23 +111,6 @@ void RmtpServer::on_get_monitor_data(DFData data)
     {
         socketPtr->write(rs.toStdString().c_str(),framelength+4);
     }
-
-//    QByteArray rsposition;
-//    QDataStream outposition(&rsposition,QIODevice::ReadWrite);
-//    outposition.setByteOrder(QDataStream::LittleEndian);
-//    outposition.setFloatingPointPrecision(QDataStream::SinglePrecision);
-
-//    framelength=8+12;
-//    qint8 dtype=3;
-//    float latitude=0;
-//    float longtitude=0;
-
-//    outposition<<0xeeeeeeee<<framelength<<year<<month<<day<<hour<<min<<second<<milisecond<<dtype<<latitude<<longtitude;
-
-//    if(this->socketPtr!=nullptr)
-//    {
-//        socketPtr->write(rsposition.toStdString().c_str(),framelength+4);
-//    }
 }
 
 void RmtpServer::on_state_changed(QAbstractSocket::SocketState socketState)

@@ -111,6 +111,26 @@
           <property name="horizontalSpacing">
            <number>6</number>
           </property>
+          <item row="0" column="6">
+           <widget class="QPushButton" name="btnLinkDevice">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>链接设备</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="6">
+           <widget class="QPushButton" name="btnStop">
+            <property name="text">
+             <string>停止测试</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="2">
            <widget class="QLineEdit" name="txtDeviceIp">
             <property name="minimumSize">
@@ -143,7 +163,7 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
+          <item row="5" column="1">
            <widget class="QLabel" name="label_12">
             <property name="text">
              <string>频率(MHz)</string>
@@ -153,11 +173,11 @@
           <item row="0" column="3">
            <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>控制端口</string>
+             <string>BasePort</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="4">
+          <item row="0" column="5">
            <widget class="QLineEdit" name="txtDevicePort">
             <property name="minimumSize">
              <size>
@@ -172,25 +192,25 @@
              </size>
             </property>
             <property name="text">
-             <string>5563</string>
+             <string>5555</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="2">
+          <item row="6" column="2">
            <widget class="QLineEdit" name="txtDFBW">
             <property name="text">
              <string>25</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="3">
+          <item row="6" column="3">
            <widget class="QLabel" name="label_11">
             <property name="text">
              <string>解调</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="4">
+          <item row="6" column="5">
            <widget class="QComboBox" name="combDeMode">
             <item>
              <property name="text">
@@ -204,48 +224,66 @@
             </item>
            </widget>
           </item>
-          <item row="7" column="1">
+          <item row="6" column="1">
            <widget class="QLabel" name="label_14">
             <property name="text">
              <string>测向带宽(kHz)</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="2">
+          <item row="5" column="2">
            <widget class="QLineEdit" name="txtFreq">
             <property name="text">
              <string>1846.9</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="3">
+          <item row="5" column="3">
            <widget class="QLabel" name="label_13">
             <property name="text">
              <string>中频带宽(kHz)</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="4">
+          <item row="5" column="5">
            <widget class="QLineEdit" name="txtIFBW">
             <property name="text">
              <string>25</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="5" colspan="4">
-           <widget class="QPushButton" name="btnOptimize">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>31</height>
-             </size>
-            </property>
+          <item row="7" column="1">
+           <widget class="QLabel" name="label_5">
             <property name="text">
-             <string>数据校准</string>
+             <string>天线</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="5" colspan="4">
+          <item row="7" column="3">
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string>极化方式</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="2">
+           <widget class="QComboBox" name="cbAtenna"/>
+          </item>
+          <item row="7" column="5">
+           <widget class="QComboBox" name="cbPolar">
+            <item>
+             <property name="text">
+              <string>VERTICAL</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>HORIZONTAL</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="5" column="6">
            <widget class="QPushButton" name="btnSendCmd">
             <property name="minimumSize">
              <size>
@@ -258,34 +296,8 @@
             </property>
            </widget>
           </item>
-          <item row="7" column="5" colspan="4">
-           <widget class="QPushButton" name="btnStop">
-            <property name="text">
-             <string>停止测试</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="5" colspan="4">
-           <widget class="QLineEdit" name="txtDataPort">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>28</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>5565</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1" colspan="2">
-           <widget class="QPushButton" name="btnLinkDevice">
+          <item row="7" column="6">
+           <widget class="QPushButton" name="btnOptimize">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -293,20 +305,7 @@
              </size>
             </property>
             <property name="text">
-             <string>链接设备</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="3" colspan="2">
-           <widget class="QPushButton" name="btnUnlinkDevice">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>31</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>断开链接</string>
+             <string>数据校准</string>
             </property>
            </widget>
           </item>
@@ -385,13 +384,16 @@
              <number>30</number>
             </property>
             <property name="scaleMaxMinor">
-             <number>5</number>
+             <number>6</number>
             </property>
             <property name="scaleStepSize">
-             <double>0.000000000000000</double>
+             <double>30.000000000000000</double>
             </property>
             <property name="totalSteps">
              <UInt>120</UInt>
+            </property>
+            <property name="pageSteps">
+             <UInt>10</UInt>
             </property>
             <property name="lineWidth">
              <number>4</number>
