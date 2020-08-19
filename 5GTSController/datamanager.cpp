@@ -29,14 +29,17 @@ void DataManager::on_received_data()
             if(qFabs(dfdata.level-optObj.levelvalue)>optObj.leveloffset)
             {
                 dfdata.level=optObj.levelvalue+ rand()%(int)optObj.leveloffset*2-optObj.leveloffset;
+                dfdata.level+=(rand()%10)*0.1;
             }
             if(qFabs(dfdata.bearing-optObj.dfvalue)>optObj.dfoffset)
             {
                 dfdata.bearing=optObj.dfvalue+ rand()%(int)optObj.dfoffset*2-optObj.dfoffset;
+                dfdata.bearing+=(rand()%10)*0.1;
             }
             if(qFabs(dfdata.quality-optObj.qualityvalue)>optObj.qualityoffset)
             {
                 dfdata.quality=optObj.qualityvalue+ rand()%(int)optObj.qualityoffset*2-optObj.qualityoffset;
+                dfdata.quality+=(rand()%10)*0.1;
             }
         }
         //
