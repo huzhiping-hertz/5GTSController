@@ -36,6 +36,7 @@ private:
     int cmdIndex=0;
     QwtDialNeedle *dial_needle;
     ParamObj obj;
+    bool isOpt;
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();

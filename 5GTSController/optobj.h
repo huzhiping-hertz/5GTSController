@@ -7,6 +7,7 @@ class OptObj
 public:
     OptObj();
     QString ToString();
+    void Clear();
 public:
     qreal freqmin ;
     qreal freqmax;

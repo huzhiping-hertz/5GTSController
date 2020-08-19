@@ -5,10 +5,13 @@
 
 #include <memory>
 #include <QNetworkProxy>
+#include <QtMath>
+
 
 DataManager::DataManager(QObject *parent) : QObject(parent)
 {
-
+    optObj.freqmin=0;
+    optObj.freqmin=0;
 }
 
 void DataManager::on_received_data()
@@ -19,7 +22,29 @@ void DataManager::on_received_data()
     if(frameptr!=nullptr)
     {
         DFData dfdata=DataParser::Parse(frameptr);
-        emit signal_received_data(dfdata);
+
+        //校准数据
+        if(dfdata.frequency>this->optObj.freqmin*1000000 && dfdata.frequency<this->optObj.freqmax*1000000)
+        {
+            if(qFabs(dfdata.level-optObj.levelvalue)>optObj.leveloffset)
+            {
+                dfdata.level=optObj.levelvalue+ rand()%(int)optObj.leveloffset*2-optObj.leveloffset;
+            }
+            if(qFabs(dfdata.bearing-optObj.dfvalue)>optObj.dfoffset)
+            {
+                dfdata.bearing=optObj.dfvalue+ rand()%(int)optObj.dfoffset*2-optObj.dfoffset;
+            }
+            if(qFabs(dfdata.quality-optObj.qualityvalue)>optObj.qualityoffset)
+            {
+                dfdata.quality=optObj.qualityvalue+ rand()%(int)optObj.qualityoffset*2-optObj.qualityoffset;
+            }
+        }
+        //
+
+        if(dfdata.status==414)
+        {
+            emit signal_received_data(dfdata);
+        }
     }
 }
 
@@ -34,4 +59,17 @@ bool DataManager::ConnectDevice(QString ip,qint32 port)
 void DataManager::DisConnectDevice()
 {
     this->tcpsocket.disconnectFromHost();
+}
+
+void DataManager::SetOptValue(OptObj opt)
+{
+    this->optObj.freqmax=opt.freqmax;
+    this->optObj.freqmin=opt.freqmin;
+    this->optObj.optmode=opt.optmode;
+    this->optObj.dfvalue=opt.dfvalue;
+    this->optObj.dfoffset=opt.dfoffset;
+    this->optObj.qualityvalue=opt.qualityvalue;
+    this->optObj.qualityoffset=opt.qualityoffset;
+    this->optObj.levelvalue=opt.levelvalue;
+    this->optObj.leveloffset=opt.leveloffset;
 }

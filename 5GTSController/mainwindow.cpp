@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->ThermoLevel->setFillBrush(QBrush(Qt::blue));
     SetAtennaInfo();
-
+    this->isOpt=false;
     //ui->txtDeviceCmd->setPlainText(QSysInfo::buildAbi());
 }
 
@@ -71,9 +71,15 @@ void MainWindow::GetCmdTemplate(QString filename)
     QFile file(QCoreApplication::applicationDirPath()+"/"+filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-       ui->txtDeviceResponse->appendPlainText("can not find cmd template");
-       return;
+        ui->txtDeviceResponse->appendPlainText("can not find cmd template");
+        return;
     }
+
+    ui->txtFreq->setText(QString::number(obj.frequency));
+    ui->txtIFBW->setText(QString::number(obj.ifpan));
+    ui->txtDFBW->setText(QString::number(obj.dfpan));
+    ui->cbAtenna->setCurrentText(obj.antenna.toUpper());
+    ui->cbPolar->setCurrentText(obj.polorization.toUpper());
 
     //QString local_ip=this->gtsClient.tcpsocket.localAddress().toString();
     //unsigned int local_port =this->gtsClient.tcpsocket.localPort()+1;
@@ -171,36 +177,52 @@ void MainWindow::on_rmtpserver_receivedcmd(QString cmd)
 {
     ui->txtDeviceResponse->setPlainText(cmd);
     ui->txtDeviceResponse->setPlainText(cmd);
-//    RmtpCmdFactory factory;
-//    shared_ptr<RmtpCmd> cmdptr=factory.CreateCmd(cmd);
+    //    RmtpCmdFactory factory;
+    //    shared_ptr<RmtpCmd> cmdptr=factory.CreateCmd(cmd);
 
-//    this->gtsClient.SendCmd(cmdptr->Response());
+    //    this->gtsClient.SendCmd(cmdptr->Response());
 }
 
 void MainWindow::on_btnOptimize_clicked()
 {
-    //开启数据库，接收优化数据
-    QSqlDatabase database =QSqlDatabase::addDatabase("QSQLITE");
-    database.setDatabaseName("opt");
-    if(database.open())
+    if(this->isOpt==true)
     {
-        QSqlQuery query;
-        query.prepare("select * from optrange");
-        if(query.exec())
+        this->optObj.Clear();
+        this->isOpt=false;
+        this->dataManager.SetOptValue(this->optObj);
+        ui->btnOptimize->setText("数据校准");
+    }
+    else
+    {
+        //开启数据库，接收优化数据
+        QSqlDatabase database =QSqlDatabase::addDatabase("QSQLITE");
+        database.setDatabaseName("opt");
+        if(database.open())
         {
-            while (query.next()) {
-                     this->optObj.freqmin = query.value(0).toReal();
-                     this->optObj.freqmax = query.value(1).toReal();
-                     this->optObj.optmode=query.value(2).toString();
-                     this->optObj.dfvalue=query.value(3).toReal();
-                     this->optObj.dfoffset=query.value(4).toReal();
-                     this->optObj.qualityvalue=query.value(5).toReal();
-                     this->optObj.qualityoffset=query.value(6).toReal();
-                     this->optObj.levelvalue=query.value(7).toReal();
-                     this->optObj.leveloffset=query.value(8).toReal();
-                 }
+            QSqlQuery query;
+            query.prepare("select * from optrange");
+            if(query.exec())
+            {
+                while (query.next()) {
+
+                    this->optObj.freqmin = query.value(0).toReal();
+                    this->optObj.freqmax = query.value(1).toReal();
+                    this->optObj.optmode=query.value(2).toString();
+                    this->optObj.dfvalue=query.value(3).toReal();
+                    this->optObj.dfoffset=query.value(4).toReal();
+                    this->optObj.qualityvalue=query.value(5).toReal();
+                    this->optObj.qualityoffset=query.value(6).toReal();
+                    this->optObj.levelvalue=query.value(7).toReal();
+                    this->optObj.leveloffset=query.value(8).toReal();
+                    if(ui->txtFreq->text().toDouble()>this->optObj.freqmin && ui->txtFreq->text().toDouble()<this->optObj.freqmax)
+                    {
+                        this->dataManager.SetOptValue(this->optObj);
+                        ui->btnOptimize->setText("停止校准");
+                        this->isOpt=true;
+                    }
+                }
+            }
         }
-    ui->txtDeviceResponse->appendPlainText(optObj.ToString());
     }
 }
 
@@ -215,13 +237,13 @@ void MainWindow::SetAtennaInfo()
         if(query.exec())
         {
             while (query.next()) {
-                     AtennaInfo atenna ;
-                     atenna.AtennaName = query.value(0).toString();
-                     atenna.FreqMin = query.value(1).toLongLong();
-                     atenna.FreqMax=query.value(2).toLongLong();
-                     atennas.push_back(atenna);
-                     this->ui->cbAtenna->addItem(atenna.AtennaName);
-                 }
+                AtennaInfo atenna ;
+                atenna.AtennaName = query.value(0).toString();
+                atenna.FreqMin = query.value(1).toLongLong();
+                atenna.FreqMax=query.value(2).toLongLong();
+                atennas.push_back(atenna);
+                this->ui->cbAtenna->addItem(atenna.AtennaName);
+            }
         }
 
     }
