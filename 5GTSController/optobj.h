@@ -18,6 +18,7 @@ public:
     qreal qualityoffset;
     qreal levelvalue;
     qreal leveloffset;
+    qreal qualitythreashold;
 };
 
 #endif // OPTOBJ_H

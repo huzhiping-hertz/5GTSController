@@ -8,11 +8,12 @@ class ParamObj
 {
 public:
     ParamObj();
-    void SelectAntenna(QList<AtennaInfo> atennas);
+    void SelectAntenna(QList<AtennaInfo> atennas,QString polor);
 public :
     qreal frequency;
-    qint32 ifpan;
-    qint32 dfpan;
+    qreal ifpan;
+    QString dfpan;
+    qint32 range;
     QString demode;
     QString antenna;
     qint64 freqBegin;

@@ -14,6 +14,8 @@
 #include "qwt_dial_needle.h"
 #include "atennainfo.h"
 #include "paramobj.h"
+#include "versionwindow.h"
+#include <vector>
 
 using namespace std;
 
@@ -37,6 +39,8 @@ private:
     QwtDialNeedle *dial_needle;
     ParamObj obj;
     bool isOpt;
+    VersionWindow *versionptr;
+    vector<QString> dfpans;
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -44,6 +48,7 @@ private:
     void SendCmd(int i);
     void GetCmdTemplate(QString filename);
     void SetAtennaInfo();
+    QString GetRightDFSpan(qreal dfpan);
 private slots:
 
     void on_btnLinkDevice_clicked();
@@ -66,6 +71,8 @@ private slots:
     void on_rmtpserver_stop();
 
     void on_btnUnlinkDevice_clicked();
+
+    void on_actionInfo_clicked(QAction* action);
 
 private:
     Ui::MainWindow *ui;

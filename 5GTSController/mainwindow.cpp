@@ -12,12 +12,16 @@
 #include <QList>
 #include <QThread>
 #include "qwt_dial_needle.h"
+#include <QtMath>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+
+    //connect(ui->menuBar,SIGNAL(triggered(QAction*)),this,SLOT(on_actionInfo_clicked(QAction*)));
     dial_needle= new QwtDialSimpleNeedle(QwtDialSimpleNeedle::Arrow, true, Qt::yellow, Qt::darkGray);
     ui->DialDegree->setNeedle(dial_needle);
 
@@ -31,6 +35,38 @@ MainWindow::MainWindow(QWidget *parent) :
     SetAtennaInfo();
     this->isOpt=false;
     //ui->txtDeviceCmd->setPlainText(QSysInfo::buildAbi());
+
+    this->dfpans.push_back("12.5Hz");
+    this->dfpans.push_back("20Hz");
+    this->dfpans.push_back("25Hz");
+    this->dfpans.push_back("31.25Hz");
+    this->dfpans.push_back("50Hz");
+    this->dfpans.push_back("62.5Hz");
+    this->dfpans.push_back("100Hz");
+    this->dfpans.push_back("125Hz");
+    this->dfpans.push_back("200Hz");
+    this->dfpans.push_back("250Hz");
+    this->dfpans.push_back("312.5Hz");
+    this->dfpans.push_back("500Hz");
+    this->dfpans.push_back("625Hz");
+    this->dfpans.push_back("1kHz");
+    this->dfpans.push_back("1.25kHz");
+    this->dfpans.push_back("2kHz");
+    this->dfpans.push_back("2.5kHz");
+    this->dfpans.push_back("3.125kHz");
+    this->dfpans.push_back("5kHz");
+    this->dfpans.push_back("6.25kHz");
+    this->dfpans.push_back("8.333kHz");
+    this->dfpans.push_back("12.5kHz");
+    this->dfpans.push_back("20kHz");
+    this->dfpans.push_back("25kHz");
+    this->dfpans.push_back("50kHz");
+    this->dfpans.push_back("100kHz");
+    this->dfpans.push_back("200kHz");
+    this->dfpans.push_back("500kHz");
+    this->dfpans.push_back("1MHz");
+    this->dfpans.push_back("2Mhz");
+
 }
 
 MainWindow::~MainWindow()
@@ -77,9 +113,11 @@ void MainWindow::GetCmdTemplate(QString filename)
 
     ui->txtFreq->setText(QString::number(obj.frequency));
     ui->txtIFBW->setText(QString::number(obj.ifpan));
-    ui->txtDFBW->setText(QString::number(obj.dfpan));
-    ui->cbAtenna->setCurrentText(obj.antenna.toUpper());
-    ui->cbPolar->setCurrentText(obj.polorization.toUpper());
+    QString tmp=obj.dfpan;
+    ui->cbBW->setCurrentText(tmp.replace("P",".").replace("Z","z").replace("K","k"));
+    ui->txtSpan->setText(QString::number(obj.range));
+    ui->cbAtenna->setCurrentText(obj.antenna);
+    ui->cbPolar->setCurrentText(obj.polorization);
 
     //QString local_ip=this->gtsClient.tcpsocket.localAddress().toString();
     //unsigned int local_port =this->gtsClient.tcpsocket.localPort()+1;
@@ -93,13 +131,15 @@ void MainWindow::GetCmdTemplate(QString filename)
         line.replace("@deviceport",portstr);
         line.replace("@frequency",QString::number(obj.frequency*1000000,'f',0));
         line.replace("@ifpan",QString::number(obj.ifpan));
-        line.replace("@dfpan",QString::number(obj.dfpan));
+        line.replace("@dfpan",obj.dfpan);
+        line.replace("@span",QString::number(obj.range));
         line.replace("@antenna",obj.antenna);
         line.replace("@freqBegin",QString::number(obj.freqBegin));
         line.replace("@freqEnd",QString::number(obj.freqEnd));
         line.replace("@polorization",obj.polorization);
         line.replace("@mode",obj.demode);
         this->cmdList.push_back(line);
+        ui->txtDeviceResponse->appendPlainText(line);
     }
 }
 
@@ -122,7 +162,7 @@ void MainWindow::on_device_response(QString response)
 void MainWindow::on_device_response_data(DFData response)
 {
     //ui->txtDeviceResponse->appendPlainText(response.ToString());
-    ui->txtDeviceResponse->setPlainText(response.ToString());
+    //ui->txtDeviceResponse->setPlainText(response.ToString());
     ui->lcdFreq->display(qreal(response.frequency)/1000000);
     ui->lcdSignal->display(response.level);
     ui->lcdLevel->display(response.strength);
@@ -138,13 +178,15 @@ void MainWindow::on_device_response_data(DFData response)
 void MainWindow::on_btnSendCmd_clicked()
 {
     this->obj.frequency=ui->txtFreq->text().toDouble();
-    this->obj.ifpan=ui->txtIFBW->text().toInt();
-    this->obj.dfpan=ui->txtDFBW->text().toInt();
+    this->obj.ifpan=ui->txtIFBW->text().toDouble();
+    this->obj.dfpan=ui->cbBW->currentText().toUpper().replace(".","P");
     this->obj.demode=ui->combDeMode->currentText();
     this->obj.polorization=ui->cbPolar->currentText();
-    this->obj.SelectAntenna(this->atennas);
+    this->obj.range=ui->txtSpan->text().toInt();
+    this->obj.SelectAntenna(this->atennas,this->obj.polorization);
     this->GetCmdTemplate("startcmd");
     this->SendCmd(0);
+    this->ui->btnSendCmd->setDisabled(true);
 }
 void MainWindow::SendCmd(int i)
 {
@@ -159,6 +201,7 @@ void MainWindow::on_btnStop_clicked()
 {
     this->GetCmdTemplate("stopcmd");
     this->SendCmd(0);
+    this->ui->btnSendCmd->setDisabled(false);
 }
 
 
@@ -190,7 +233,8 @@ void MainWindow::on_btnOptimize_clicked()
         this->optObj.Clear();
         this->isOpt=false;
         this->dataManager.SetOptValue(this->optObj);
-        ui->btnOptimize->setText("数据校准");
+        ui->btnOptimize->setText("");
+        setWindowTitle("5GTS Controller ");
     }
     else
     {
@@ -204,7 +248,6 @@ void MainWindow::on_btnOptimize_clicked()
             if(query.exec())
             {
                 while (query.next()) {
-
                     this->optObj.freqmin = query.value(0).toReal();
                     this->optObj.freqmax = query.value(1).toReal();
                     this->optObj.optmode=query.value(2).toString();
@@ -214,10 +257,12 @@ void MainWindow::on_btnOptimize_clicked()
                     this->optObj.qualityoffset=query.value(6).toReal();
                     this->optObj.levelvalue=query.value(7).toReal();
                     this->optObj.leveloffset=query.value(8).toReal();
-                    if(ui->txtFreq->text().toDouble()>this->optObj.freqmin && ui->txtFreq->text().toDouble()<this->optObj.freqmax)
+                    this->optObj.qualitythreashold=query.value(9).toReal();
+                    if(ui->txtFreq->text().toDouble()>=this->optObj.freqmin && ui->txtFreq->text().toDouble()<this->optObj.freqmax)
                     {
                         this->dataManager.SetOptValue(this->optObj);
-                        ui->btnOptimize->setText("停止校准");
+                        ui->btnOptimize->setText("");
+                        setWindowTitle("5GTS Controller.");
                         this->isOpt=true;
                     }
                 }
@@ -241,12 +286,54 @@ void MainWindow::SetAtennaInfo()
                 atenna.AtennaName = query.value(0).toString();
                 atenna.FreqMin = query.value(1).toLongLong();
                 atenna.FreqMax=query.value(2).toLongLong();
+                atenna.Polor = query.value(3).toString();
                 atennas.push_back(atenna);
                 this->ui->cbAtenna->addItem(atenna.AtennaName);
             }
         }
 
     }
+}
+
+QString MainWindow::GetRightDFSpan(qreal dfpan)
+{
+    QString rs;
+    qreal minus=10000000;
+
+    foreach (QString item, dfpans) {
+
+        qreal current=0;
+        if(item.contains("MHz"))
+        {
+            QString df=item;
+            current=df.replace("MHz","").trimmed().toDouble()*1000000;
+            if(qFabs(current-dfpan)<minus)
+            {
+                rs=item;
+                minus=qFabs(current-dfpan);
+            }
+
+        }else if(item.contains("kHz"))
+        {
+            QString df=item;
+            current=df.replace("kHz","").trimmed().toDouble()*1000;
+            if(qFabs(current-dfpan)<minus)
+            {
+                rs=item;
+                minus=qFabs(current-dfpan);
+            }
+        }else if(item.contains("Hz"))
+        {
+            QString df=item;
+            current=df.replace("Hz","").trimmed().toDouble();
+            if(qFabs(current-dfpan)<minus)
+            {
+                rs=item;
+                minus=qFabs(current-dfpan);
+            }
+        }
+    }
+    return rs.toUpper().replace(".","P");
 }
 
 
@@ -262,10 +349,10 @@ void MainWindow::on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam> ptr)
 {
     this->obj.frequency=ptr->Frequency;
     this->obj.ifpan=ptr->IFBandWidth;
-    this->obj.dfpan=ptr->DFBandWidth;
+    this->obj.dfpan=GetRightDFSpan(ptr->DFBandWidth);
     this->obj.demode=ptr->DeMode;
     this->obj.polorization=ptr->Polar;
-    this->obj.SelectAntenna(this->atennas);
+    this->obj.SelectAntenna(this->atennas,ptr->Polar);
     this->GetCmdTemplate("startcmd");
     this->SendCmd(0);
 }
@@ -281,4 +368,13 @@ void MainWindow::on_btnUnlinkDevice_clicked()
     this->gtsClient.DisConnectDevice();
     this->dataManager.DisConnectDevice();
     ui->btnLinkDevice->setEnabled(true);
+}
+
+void MainWindow::on_actionInfo_clicked(QAction* action)
+{
+    if(action->text()=="Info")
+    {
+        versionptr=new VersionWindow(this);
+        versionptr->show();
+    }
 }

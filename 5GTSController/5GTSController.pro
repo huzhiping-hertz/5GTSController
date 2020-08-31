@@ -41,7 +41,9 @@ SOURCES += \
     rmtpcmdstop.cpp \
     fixdfcmdparam.cpp \
     atennainfo.cpp \
-    paramobj.cpp
+    paramobj.cpp \
+    versionwindow.cpp \
+    antennawindow.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -70,10 +72,14 @@ HEADERS += \
     rmtpcmdstop.h \
     fixdfcmdparam.h \
     atennainfo.h \
-    paramobj.h
+    paramobj.h \
+    versionwindow.h \
+    antennawindow.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    versionwindow.ui \
+    antennawindow.ui
 
 
 

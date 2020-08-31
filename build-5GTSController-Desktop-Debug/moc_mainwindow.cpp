@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[21];
-    char stringdata0[381];
+    QByteArrayData data[24];
+    char stringdata0[419];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -51,7 +51,10 @@ QT_MOC_LITERAL(16, 281, 19), // "on_rmtpserver_fixdf"
 QT_MOC_LITERAL(17, 301, 29), // "shared_ptr<RmtpCmdFixDFParam>"
 QT_MOC_LITERAL(18, 331, 3), // "ptr"
 QT_MOC_LITERAL(19, 335, 18), // "on_rmtpserver_stop"
-QT_MOC_LITERAL(20, 354, 26) // "on_btnUnlinkDevice_clicked"
+QT_MOC_LITERAL(20, 354, 26), // "on_btnUnlinkDevice_clicked"
+QT_MOC_LITERAL(21, 381, 21), // "on_actionInfo_clicked"
+QT_MOC_LITERAL(22, 403, 8), // "QAction*"
+QT_MOC_LITERAL(23, 412, 6) // "action"
 
     },
     "MainWindow\0on_btnLinkDevice_clicked\0"
@@ -63,7 +66,8 @@ QT_MOC_LITERAL(20, 354, 26) // "on_btnUnlinkDevice_clicked"
     "on_btnOptimize_clicked\0on_btnStop_clicked\0"
     "on_btnRmtpStop_clicked\0on_rmtpserver_fixdf\0"
     "shared_ptr<RmtpCmdFixDFParam>\0ptr\0"
-    "on_rmtpserver_stop\0on_btnUnlinkDevice_clicked"
+    "on_rmtpserver_stop\0on_btnUnlinkDevice_clicked\0"
+    "on_actionInfo_clicked\0QAction*\0action"
 };
 #undef QT_MOC_LITERAL
 
@@ -73,7 +77,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      15,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -81,20 +85,21 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   84,    2, 0x08 /* Private */,
-       3,    0,   85,    2, 0x08 /* Private */,
-       4,    0,   86,    2, 0x08 /* Private */,
-       5,    1,   87,    2, 0x08 /* Private */,
-       7,    1,   90,    2, 0x08 /* Private */,
-       9,    0,   93,    2, 0x08 /* Private */,
-      10,    0,   94,    2, 0x08 /* Private */,
-      11,    1,   95,    2, 0x08 /* Private */,
-      13,    0,   98,    2, 0x08 /* Private */,
-      14,    0,   99,    2, 0x08 /* Private */,
-      15,    0,  100,    2, 0x08 /* Private */,
-      16,    1,  101,    2, 0x08 /* Private */,
-      19,    0,  104,    2, 0x08 /* Private */,
-      20,    0,  105,    2, 0x08 /* Private */,
+       1,    0,   89,    2, 0x08 /* Private */,
+       3,    0,   90,    2, 0x08 /* Private */,
+       4,    0,   91,    2, 0x08 /* Private */,
+       5,    1,   92,    2, 0x08 /* Private */,
+       7,    1,   95,    2, 0x08 /* Private */,
+       9,    0,   98,    2, 0x08 /* Private */,
+      10,    0,   99,    2, 0x08 /* Private */,
+      11,    1,  100,    2, 0x08 /* Private */,
+      13,    0,  103,    2, 0x08 /* Private */,
+      14,    0,  104,    2, 0x08 /* Private */,
+      15,    0,  105,    2, 0x08 /* Private */,
+      16,    1,  106,    2, 0x08 /* Private */,
+      19,    0,  109,    2, 0x08 /* Private */,
+      20,    0,  110,    2, 0x08 /* Private */,
+      21,    1,  111,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -111,6 +116,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, 0x80000000 | 17,   18,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 22,   23,
 
        0        // eod
 };
@@ -135,6 +141,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 11: _t->on_rmtpserver_fixdf((*reinterpret_cast< shared_ptr<RmtpCmdFixDFParam>(*)>(_a[1]))); break;
         case 12: _t->on_rmtpserver_stop(); break;
         case 13: _t->on_btnUnlinkDevice_clicked(); break;
+        case 14: _t->on_actionInfo_clicked((*reinterpret_cast< QAction*(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -165,13 +172,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 15;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 15)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 14;
+        _id -= 15;
     }
     return _id;
 }

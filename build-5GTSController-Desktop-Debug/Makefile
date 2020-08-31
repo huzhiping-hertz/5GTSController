@@ -75,11 +75,15 @@ SOURCES       = ../5GTSController/main.cpp \
 		../5GTSController/rmtpcmdstop.cpp \
 		../5GTSController/fixdfcmdparam.cpp \
 		../5GTSController/atennainfo.cpp \
-		../5GTSController/paramobj.cpp moc_mainwindow.cpp \
+		../5GTSController/paramobj.cpp \
+		../5GTSController/versionwindow.cpp \
+		../5GTSController/antennawindow.cpp moc_mainwindow.cpp \
 		moc_rmtpserver.cpp \
 		moc_gtsclient.cpp \
 		moc_datamanager.cpp \
-		moc_datalistener.cpp
+		moc_datalistener.cpp \
+		moc_versionwindow.cpp \
+		moc_antennawindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		rmtpserver.o \
@@ -106,11 +110,15 @@ OBJECTS       = main.o \
 		fixdfcmdparam.o \
 		atennainfo.o \
 		paramobj.o \
+		versionwindow.o \
+		antennawindow.o \
 		moc_mainwindow.o \
 		moc_rmtpserver.o \
 		moc_gtsclient.o \
 		moc_datamanager.o \
-		moc_datalistener.o
+		moc_datalistener.o \
+		moc_versionwindow.o \
+		moc_antennawindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -227,7 +235,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../5GTSController/rmtpcmdstop.h \
 		../5GTSController/fixdfcmdparam.h \
 		../5GTSController/atennainfo.h \
-		../5GTSController/paramobj.h ../5GTSController/main.cpp \
+		../5GTSController/paramobj.h \
+		../5GTSController/versionwindow.h \
+		../5GTSController/antennawindow.h ../5GTSController/main.cpp \
 		../5GTSController/mainwindow.cpp \
 		../5GTSController/rmtpserver.cpp \
 		../5GTSController/rmtpcmd.cpp \
@@ -252,7 +262,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../5GTSController/rmtpcmdstop.cpp \
 		../5GTSController/fixdfcmdparam.cpp \
 		../5GTSController/atennainfo.cpp \
-		../5GTSController/paramobj.cpp
+		../5GTSController/paramobj.cpp \
+		../5GTSController/versionwindow.cpp \
+		../5GTSController/antennawindow.cpp
 QMAKE_TARGET  = 5GTSController
 DESTDIR       = 
 TARGET        = 5GTSController
@@ -261,7 +273,7 @@ TARGET        = 5GTSController
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_versionwindow.h ui_antennawindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../5GTSController/5GTSController.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -472,9 +484,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../5GTSController/mainwindow.h ../5GTSController/rmtpserver.h ../5GTSController/rmtpcmd.h ../5GTSController/gtscmd.h ../5GTSController/gtsclient.h ../5GTSController/datamanager.h ../5GTSController/frameheader.h ../5GTSController/framedfpan.h ../5GTSController/dataparser.h ../5GTSController/dfdata.h ../5GTSController/gtscmdfactory.h ../5GTSController/framefactory.h ../5GTSController/frametagtype.h ../5GTSController/optobj.h ../5GTSController/datalistener.h ../5GTSController/framedfpscan.h ../5GTSController/transducer.h ../5GTSController/rmtpcmdverify.h ../5GTSController/rmtpcmdfixdf.h ../5GTSController/rmtpcmdfactory.h ../5GTSController/rmtpcmderror.h ../5GTSController/rmtpcmdprefixdf.h ../5GTSController/rmtpcmdfixdfparam.h ../5GTSController/rmtpcmdstop.h ../5GTSController/fixdfcmdparam.h ../5GTSController/atennainfo.h ../5GTSController/paramobj.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../5GTSController/main.cpp ../5GTSController/mainwindow.cpp ../5GTSController/rmtpserver.cpp ../5GTSController/rmtpcmd.cpp ../5GTSController/gtscmd.cpp ../5GTSController/gtsclient.cpp ../5GTSController/datamanager.cpp ../5GTSController/frameheader.cpp ../5GTSController/framedfpan.cpp ../5GTSController/dataparser.cpp ../5GTSController/dfdata.cpp ../5GTSController/gtscmdfactory.cpp ../5GTSController/framefactory.cpp ../5GTSController/optobj.cpp ../5GTSController/datalistener.cpp ../5GTSController/framedfpscan.cpp ../5GTSController/rmtpcmdverify.cpp ../5GTSController/rmtpcmdfixdf.cpp ../5GTSController/rmtpcmdfactory.cpp ../5GTSController/rmtpcmderror.cpp ../5GTSController/rmtpcmdprefixdf.cpp ../5GTSController/rmtpcmdfixdfparam.cpp ../5GTSController/rmtpcmdstop.cpp ../5GTSController/fixdfcmdparam.cpp ../5GTSController/atennainfo.cpp ../5GTSController/paramobj.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../5GTSController/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../5GTSController/mainwindow.h ../5GTSController/rmtpserver.h ../5GTSController/rmtpcmd.h ../5GTSController/gtscmd.h ../5GTSController/gtsclient.h ../5GTSController/datamanager.h ../5GTSController/frameheader.h ../5GTSController/framedfpan.h ../5GTSController/dataparser.h ../5GTSController/dfdata.h ../5GTSController/gtscmdfactory.h ../5GTSController/framefactory.h ../5GTSController/frametagtype.h ../5GTSController/optobj.h ../5GTSController/datalistener.h ../5GTSController/framedfpscan.h ../5GTSController/transducer.h ../5GTSController/rmtpcmdverify.h ../5GTSController/rmtpcmdfixdf.h ../5GTSController/rmtpcmdfactory.h ../5GTSController/rmtpcmderror.h ../5GTSController/rmtpcmdprefixdf.h ../5GTSController/rmtpcmdfixdfparam.h ../5GTSController/rmtpcmdstop.h ../5GTSController/fixdfcmdparam.h ../5GTSController/atennainfo.h ../5GTSController/paramobj.h ../5GTSController/versionwindow.h ../5GTSController/antennawindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../5GTSController/main.cpp ../5GTSController/mainwindow.cpp ../5GTSController/rmtpserver.cpp ../5GTSController/rmtpcmd.cpp ../5GTSController/gtscmd.cpp ../5GTSController/gtsclient.cpp ../5GTSController/datamanager.cpp ../5GTSController/frameheader.cpp ../5GTSController/framedfpan.cpp ../5GTSController/dataparser.cpp ../5GTSController/dfdata.cpp ../5GTSController/gtscmdfactory.cpp ../5GTSController/framefactory.cpp ../5GTSController/optobj.cpp ../5GTSController/datalistener.cpp ../5GTSController/framedfpscan.cpp ../5GTSController/rmtpcmdverify.cpp ../5GTSController/rmtpcmdfixdf.cpp ../5GTSController/rmtpcmdfactory.cpp ../5GTSController/rmtpcmderror.cpp ../5GTSController/rmtpcmdprefixdf.cpp ../5GTSController/rmtpcmdfixdfparam.cpp ../5GTSController/rmtpcmdstop.cpp ../5GTSController/fixdfcmdparam.cpp ../5GTSController/atennainfo.cpp ../5GTSController/paramobj.cpp ../5GTSController/versionwindow.cpp ../5GTSController/antennawindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../5GTSController/mainwindow.ui ../5GTSController/versionwindow.ui ../5GTSController/antennawindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -506,9 +518,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_rmtpserver.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_rmtpserver.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp moc_versionwindow.cpp moc_antennawindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_rmtpserver.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_rmtpserver.cpp moc_gtsclient.cpp moc_datamanager.cpp moc_datalistener.cpp moc_versionwindow.cpp moc_antennawindow.cpp
 moc_mainwindow.cpp: ../5GTSController/gtsclient.h \
 		../5GTSController/gtscmd.h \
 		../5GTSController/rmtpserver.h \
@@ -518,10 +530,11 @@ moc_mainwindow.cpp: ../5GTSController/gtsclient.h \
 		../5GTSController/datamanager.h \
 		../5GTSController/dataparser.h \
 		../5GTSController/frameheader.h \
-		../5GTSController/datalistener.h \
 		../5GTSController/optobj.h \
+		../5GTSController/datalistener.h \
 		../5GTSController/atennainfo.h \
 		../5GTSController/paramobj.h \
+		../5GTSController/versionwindow.h \
 		../5GTSController/mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -546,6 +559,7 @@ moc_gtsclient.cpp: ../5GTSController/gtscmd.h \
 moc_datamanager.cpp: ../5GTSController/dataparser.h \
 		../5GTSController/dfdata.h \
 		../5GTSController/frameheader.h \
+		../5GTSController/optobj.h \
 		../5GTSController/datamanager.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -557,16 +571,34 @@ moc_datalistener.cpp: ../5GTSController/dfdata.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/qwt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/datalistener.h -o moc_datalistener.cpp
 
+moc_versionwindow.cpp: ../5GTSController/versionwindow.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/qwt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/versionwindow.h -o moc_versionwindow.cpp
+
+moc_antennawindow.cpp: ../5GTSController/antennawindow.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hz/work/RSCode/5GTSControler/5GTSController -I/usr/include/qwt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../5GTSController/antennawindow.h -o moc_antennawindow.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_mainwindow.h ui_versionwindow.h ui_antennawindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_mainwindow.h ui_versionwindow.h ui_antennawindow.h
 ui_mainwindow.h: ../5GTSController/mainwindow.ui \
 		/usr/lib/qt5/bin/uic \
 		/usr/include/qwt/qwt_dial.h \
 		/usr/include/qwt/qwt_thermo.h
 	/usr/lib/qt5/bin/uic ../5GTSController/mainwindow.ui -o ui_mainwindow.h
+
+ui_versionwindow.h: ../5GTSController/versionwindow.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../5GTSController/versionwindow.ui -o ui_versionwindow.h
+
+ui_antennawindow.h: ../5GTSController/antennawindow.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../5GTSController/antennawindow.ui -o ui_antennawindow.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -588,10 +620,11 @@ main.o: ../5GTSController/main.cpp ../5GTSController/mainwindow.h \
 		../5GTSController/datamanager.h \
 		../5GTSController/dataparser.h \
 		../5GTSController/frameheader.h \
-		../5GTSController/datalistener.h \
 		../5GTSController/optobj.h \
+		../5GTSController/datalistener.h \
 		../5GTSController/atennainfo.h \
-		../5GTSController/paramobj.h
+		../5GTSController/paramobj.h \
+		../5GTSController/versionwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../5GTSController/main.cpp
 
 mainwindow.o: ../5GTSController/mainwindow.cpp ../5GTSController/mainwindow.h \
@@ -604,10 +637,11 @@ mainwindow.o: ../5GTSController/mainwindow.cpp ../5GTSController/mainwindow.h \
 		../5GTSController/datamanager.h \
 		../5GTSController/dataparser.h \
 		../5GTSController/frameheader.h \
-		../5GTSController/datalistener.h \
 		../5GTSController/optobj.h \
+		../5GTSController/datalistener.h \
 		../5GTSController/atennainfo.h \
 		../5GTSController/paramobj.h \
+		../5GTSController/versionwindow.h \
 		ui_mainwindow.h \
 		../5GTSController/rmtpcmdfactory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../5GTSController/mainwindow.cpp
@@ -637,6 +671,7 @@ datamanager.o: ../5GTSController/datamanager.cpp ../5GTSController/datamanager.h
 		../5GTSController/dataparser.h \
 		../5GTSController/dfdata.h \
 		../5GTSController/frameheader.h \
+		../5GTSController/optobj.h \
 		../5GTSController/framefactory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datamanager.o ../5GTSController/datamanager.cpp
 
@@ -674,6 +709,7 @@ datalistener.o: ../5GTSController/datalistener.cpp ../5GTSController/datalistene
 		../5GTSController/datamanager.h \
 		../5GTSController/dataparser.h \
 		../5GTSController/frameheader.h \
+		../5GTSController/optobj.h \
 		../5GTSController/framefactory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datalistener.o ../5GTSController/datalistener.cpp
 
@@ -728,6 +764,14 @@ paramobj.o: ../5GTSController/paramobj.cpp ../5GTSController/paramobj.h \
 		../5GTSController/atennainfo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o paramobj.o ../5GTSController/paramobj.cpp
 
+versionwindow.o: ../5GTSController/versionwindow.cpp ../5GTSController/versionwindow.h \
+		ui_versionwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o versionwindow.o ../5GTSController/versionwindow.cpp
+
+antennawindow.o: ../5GTSController/antennawindow.cpp ../5GTSController/antennawindow.h \
+		ui_antennawindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o antennawindow.o ../5GTSController/antennawindow.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
@@ -742,6 +786,12 @@ moc_datamanager.o: moc_datamanager.cpp
 
 moc_datalistener.o: moc_datalistener.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_datalistener.o moc_datalistener.cpp
+
+moc_versionwindow.o: moc_versionwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_versionwindow.o moc_versionwindow.cpp
+
+moc_antennawindow.o: moc_antennawindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_antennawindow.o moc_antennawindow.cpp
 
 ####### Install
 

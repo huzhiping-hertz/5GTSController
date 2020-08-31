@@ -10,6 +10,7 @@ public:
     QString AtennaName;
     qint64 FreqMin;
     qint64 FreqMax;
+    QString Polor;
 };
 
 #endif // ATENNAINFO_H
