@@ -19,6 +19,7 @@ public :
     qint64 freqBegin;
     qint64 freqEnd;
     QString polorization;
+    qint32 itime;
 };
 
 #endif // PARAMOBJ_H

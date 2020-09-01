@@ -84,6 +84,8 @@ public:
     QPushButton *btnOptimize;
     QLineEdit *txtFreq;
     QComboBox *cbBW;
+    QLabel *label_17;
+    QLineEdit *txtTime;
     QGroupBox *groupBox;
     QHBoxLayout *horizontalLayout_2;
     QPlainTextEdit *txtDeviceResponse;
@@ -375,6 +377,16 @@ public:
 
         gridLayout_2->addWidget(cbBW, 6, 3, 1, 1);
 
+        label_17 = new QLabel(groupBox_6);
+        label_17->setObjectName(QStringLiteral("label_17"));
+
+        gridLayout_2->addWidget(label_17, 8, 4, 1, 1);
+
+        txtTime = new QLineEdit(groupBox_6);
+        txtTime->setObjectName(QStringLiteral("txtTime"));
+
+        gridLayout_2->addWidget(txtTime, 8, 6, 1, 1);
+
 
         gridLayout->addWidget(groupBox_6, 1, 0, 1, 1);
 
@@ -484,6 +496,8 @@ public:
          << QApplication::translate("MainWindow", "1MHz", Q_NULLPTR)
          << QApplication::translate("MainWindow", "2Mhz", Q_NULLPTR)
         );
+        label_17->setText(QApplication::translate("MainWindow", "\347\247\257\345\210\206\346\227\266\351\227\264(ms)", Q_NULLPTR));
+        txtTime->setText(QApplication::translate("MainWindow", "1000", Q_NULLPTR));
         groupBox->setTitle(QString());
     } // retranslateUi
 

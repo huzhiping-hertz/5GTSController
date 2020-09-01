@@ -118,6 +118,7 @@ void MainWindow::GetCmdTemplate(QString filename)
     ui->txtSpan->setText(QString::number(obj.range));
     ui->cbAtenna->setCurrentText(obj.antenna);
     ui->cbPolar->setCurrentText(obj.polorization);
+    ui->txtTime->setText(QString::number(obj.itime));
 
     //QString local_ip=this->gtsClient.tcpsocket.localAddress().toString();
     //unsigned int local_port =this->gtsClient.tcpsocket.localPort()+1;
@@ -138,6 +139,7 @@ void MainWindow::GetCmdTemplate(QString filename)
         line.replace("@freqEnd",QString::number(obj.freqEnd));
         line.replace("@polorization",obj.polorization);
         line.replace("@mode",obj.demode);
+        line.replace("@time",QString::number(obj.itime));
         this->cmdList.push_back(line);
         ui->txtDeviceResponse->appendPlainText(line);
     }
@@ -183,6 +185,7 @@ void MainWindow::on_btnSendCmd_clicked()
     this->obj.demode=ui->combDeMode->currentText();
     this->obj.polorization=ui->cbPolar->currentText();
     this->obj.range=ui->txtSpan->text().toInt();
+    this->obj.itime=ui->txtTime->text().toInt();
     this->obj.SelectAntenna(this->atennas,this->obj.polorization);
     this->GetCmdTemplate("startcmd");
     this->SendCmd(0);
@@ -348,6 +351,7 @@ void MainWindow::on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam> ptr)
     this->obj.demode=ptr->DeMode;
     this->obj.polorization=ptr->Polar;
     this->obj.range=500;
+    this->obj.itime=ptr->IntegrationTime;
     this->obj.SelectAntenna(this->atennas,ptr->Polar);
     this->SetOptObj(this->obj.frequency*1000000);
     this->GetCmdTemplate("startcmd");
