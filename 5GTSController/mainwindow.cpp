@@ -220,10 +220,6 @@ void MainWindow::on_rmtpserver_receivedcmd(QString cmd)
 {
     ui->txtDeviceResponse->setPlainText(cmd);
     ui->txtDeviceResponse->setPlainText(cmd);
-    //    RmtpCmdFactory factory;
-    //    shared_ptr<RmtpCmd> cmdptr=factory.CreateCmd(cmd);
-
-    //    this->gtsClient.SendCmd(cmdptr->Response());
 }
 
 void MainWindow::on_btnOptimize_clicked()
@@ -233,38 +229,37 @@ void MainWindow::on_btnOptimize_clicked()
         this->optObj.Clear();
         this->isOpt=false;
         this->dataManager.SetOptValue(this->optObj);
-        ui->btnOptimize->setText("");
         setWindowTitle("5GTS Controller ");
     }
     else
     {
-        //开启数据库，接收优化数据
-        QSqlDatabase database =QSqlDatabase::addDatabase("QSQLITE");
-        database.setDatabaseName("opt");
-        if(database.open())
+        SetOptObj(ui->txtFreq->text().toDouble()*1000000);
+
+    }
+}
+
+void MainWindow::SetOptObj(qint64 freq)
+{
+    //开启数据库，接收优化数据
+    QSqlDatabase database =QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("opt");
+    if(database.open())
+    {
+        QSqlQuery query;
+        query.prepare("select * from optrange");
+        if(query.exec())
         {
-            QSqlQuery query;
-            query.prepare("select * from optrange");
-            if(query.exec())
-            {
-                while (query.next()) {
-                    this->optObj.freqmin = query.value(0).toReal();
-                    this->optObj.freqmax = query.value(1).toReal();
-                    this->optObj.optmode=query.value(2).toString();
-                    this->optObj.dfvalue=query.value(3).toReal();
-                    this->optObj.dfoffset=query.value(4).toReal();
-                    this->optObj.qualityvalue=query.value(5).toReal();
-                    this->optObj.qualityoffset=query.value(6).toReal();
-                    this->optObj.levelvalue=query.value(7).toReal();
-                    this->optObj.leveloffset=query.value(8).toReal();
-                    this->optObj.qualitythreashold=query.value(9).toReal();
-                    if(ui->txtFreq->text().toDouble()>=this->optObj.freqmin && ui->txtFreq->text().toDouble()<this->optObj.freqmax)
-                    {
-                        this->dataManager.SetOptValue(this->optObj);
-                        ui->btnOptimize->setText("");
-                        setWindowTitle("5GTS Controller.");
-                        this->isOpt=true;
-                    }
+            while (query.next()) {
+                this->optObj.freqmin = query.value(0).toReal();
+                this->optObj.freqmax = query.value(1).toReal();
+                this->optObj.dfvalue=query.value(2).toReal();
+                this->optObj.dfoffset=query.value(3).toReal();
+                this->optObj.qualitythreashold=query.value(4).toReal();
+                if(freq>=this->optObj.freqmin && freq<this->optObj.freqmax)
+                {
+                    this->dataManager.SetOptValue(this->optObj);
+                    setWindowTitle("5GTS Controller.");
+                    this->isOpt=true;
                 }
             }
         }
@@ -347,12 +342,14 @@ void MainWindow::on_btnRmtpStop_clicked()
 
 void MainWindow::on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam> ptr)
 {
-    this->obj.frequency=ptr->Frequency;
-    this->obj.ifpan=ptr->IFBandWidth;
+    this->obj.frequency=ptr->Frequency/1000000.0;
+    this->obj.ifpan=ptr->IFBandWidth/1000;
     this->obj.dfpan=GetRightDFSpan(ptr->DFBandWidth);
     this->obj.demode=ptr->DeMode;
     this->obj.polorization=ptr->Polar;
+    this->obj.range=500;
     this->obj.SelectAntenna(this->atennas,ptr->Polar);
+    this->SetOptObj(this->obj.frequency*1000000);
     this->GetCmdTemplate("startcmd");
     this->SendCmd(0);
 }

@@ -12,28 +12,29 @@ RmtpCmdFixDFParam::RmtpCmdFixDFParam(QString cmd)
 
 void RmtpCmdFixDFParam::Response(QTcpSocket* socketPtr)
 {
-    QRegExp rx("frequency=(\\d*\\.*\\d+)MHz");
+    this->cmd=this->cmd.toUpper();
+    QRegExp rx("FREQUENCY=(\\d*\\.*\\d+)(MHZ|KHZ|HZ)");
     int pos=rx.indexIn(this->cmd);
     if(pos>-1)
     {
-        this->Frequency=rx.cap(1).toDouble();
+        this->Frequency=rx.cap(1).toDouble()*Times(rx.cap(2));
     }
 
-    rx=QRegExp("ifbw=(\\d+)kHz");
+    rx=QRegExp("IFBW=(\\d*\\.*\\d+)(MHZ|KHZ|HZ)");
     pos=rx.indexIn(this->cmd);
     if(pos>-1)
     {
-        this->IFBandWidth=rx.cap(1).toInt();
+        this->IFBandWidth=rx.cap(1).toDouble()*Times(rx.cap(2));
     }
 
-    rx=QRegExp("dfbw=(\\d+)kHz");
+    rx=QRegExp("DFBW=(\\d*\\.*\\d+)(MHZ|KHZ|HZ)");
     pos=rx.indexIn(this->cmd);
     if(pos>-1)
     {
-        this->DFBandWidth=rx.cap(1).toInt();
+        this->DFBandWidth=rx.cap(1).toDouble()*Times(rx.cap(2));
     }
 
-    rx=QRegExp("demodmode=(\\S+),");
+    rx=QRegExp("DFMODE=(\\S+),");
     rx.setMinimal(true);
     pos=rx.indexIn(this->cmd);
     if(pos>-1)
@@ -41,12 +42,20 @@ void RmtpCmdFixDFParam::Response(QTcpSocket* socketPtr)
         this->DeMode=rx.cap(1);
     }
 
-    rx=QRegExp("polarization=(\\S+),");
+    rx=QRegExp("POLARIZATION=(\\S+),");
     rx.setMinimal(true);
     pos=rx.indexIn(this->cmd);
     if(pos>-1)
     {
         this->Polar=rx.cap(1);
+    }
+
+    rx=QRegExp("INTEGRATIONTIME=(\\d*)MS,");
+    rx.setMinimal(true);
+    pos=rx.indexIn(this->cmd);
+    if(pos>-1)
+    {
+        this->IntegrationTime=rx.cap(1).toInt();
     }
 
     QByteArray rs;
@@ -88,8 +97,18 @@ void RmtpCmdFixDFParam::Response(QTcpSocket* socketPtr)
     dataType=6;
     framelength=9+12;
     qint8 itype=0;
-    qint64 freq=(int)(this->Frequency*1000000);
+    qint64 freq=(int)(this->Frequency);
     outheader<<0xeeeeeeee<<framelength<<year<<month<<day<<hour<<min<<second<<milisecond<<dataType<<itype<<freq;
     socketPtr->write(rsheader.toStdString().c_str(),framelength+4);
 
+}
+
+int RmtpCmdFixDFParam::Times(QString unit)
+{
+    if(unit=="MHZ")
+        return 1000000;
+    else if (unit=="KHZ")
+        return 1000;
+    else
+        return 1;
 }

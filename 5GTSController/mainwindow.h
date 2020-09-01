@@ -49,6 +49,7 @@ private:
     void GetCmdTemplate(QString filename);
     void SetAtennaInfo();
     QString GetRightDFSpan(qreal dfpan);
+    void SetOptObj(qint64 freq);
 private slots:
 
     void on_btnLinkDevice_clicked();

@@ -10,11 +10,14 @@ class RmtpCmdFixDFParam : public RmtpCmd
 public:
     RmtpCmdFixDFParam(QString cmd);
     void Response(QTcpSocket* socketPtr);
-    double Frequency;
-    qint16 IFBandWidth;
-    qint16 DFBandWidth;
+    qint64 Frequency;
+    qint32 IFBandWidth;
+    qint32 DFBandWidth;
     QString DeMode;
     QString Polar;
+    qint32 IntegrationTime;
+private:
+    int Times(QString unit);
 };
 
 #endif // RMTPCMDFIXDFPARAM_H

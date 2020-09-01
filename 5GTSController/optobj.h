@@ -9,15 +9,10 @@ public:
     QString ToString();
     void Clear();
 public:
-    qreal freqmin ;
-    qreal freqmax;
-    QString optmode;
+    qint64 freqmin ;
+    qint64 freqmax;
     qreal dfvalue;
     qreal dfoffset;
-    qreal qualityvalue;
-    qreal qualityoffset;
-    qreal levelvalue;
-    qreal leveloffset;
     qreal qualitythreashold;
 };
 
