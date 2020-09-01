@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->ThermoLevel->setFillBrush(QBrush(Qt::blue));
     SetAtennaInfo();
-    this->isOpt=false;
+    this->isOpt=true;
     //ui->txtDeviceCmd->setPlainText(QSysInfo::buildAbi());
 
     this->dfpans.push_back("12.5Hz");
@@ -187,6 +187,7 @@ void MainWindow::on_btnSendCmd_clicked()
     this->obj.range=ui->txtSpan->text().toInt();
     this->obj.itime=ui->txtTime->text().toInt();
     this->obj.SelectAntenna(this->atennas,this->obj.polorization);
+    SetOptObj(this->obj.frequency*1000000);
     this->GetCmdTemplate("startcmd");
     this->SendCmd(0);
     this->ui->btnSendCmd->setDisabled(true);
@@ -237,7 +238,6 @@ void MainWindow::on_btnOptimize_clicked()
     else
     {
         SetOptObj(ui->txtFreq->text().toDouble()*1000000);
-
     }
 }
 
