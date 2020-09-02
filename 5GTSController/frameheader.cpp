@@ -3,7 +3,7 @@
 #include <QtEndian>
 
 FrameHeader::FrameHeader(const void* buff) {
-    this->buffer=buff;
+    this->buffer=(char*)buff;
 }
 
 void FrameHeader::DeSerialize() {

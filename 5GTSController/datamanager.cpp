@@ -51,12 +51,20 @@ bool DataManager::ConnectDevice(QString ip,qint32 port)
     connect(&tcpsocket,SIGNAL(readyRead()), this, SLOT(on_received_data()));
     this->tcpsocket.setProxy(QNetworkProxy::NoProxy);
     this->tcpsocket.connectToHost(ip,port);
+    if(this->tcpsocket.waitForConnected(5000)||this->tcpsocket.state()==QAbstractSocket::UnconnectedState)
+    {
+        emit signal_data_disconnected();
+    }
+    if(this->tcpsocket.state()==QAbstractSocket::ConnectedState)
+    {
+        emit signal_data_connected();
+    }
     return true;
 }
 
 void DataManager::DisConnectDevice()
 {
-    this->tcpsocket.disconnectFromHost();
+    //this->tcpsocket.disconnect();
 }
 
 void DataManager::SetOptValue(OptObj opt)

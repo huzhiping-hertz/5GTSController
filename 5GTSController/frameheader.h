@@ -5,7 +5,7 @@
 class FrameHeader
 {
 protected:
-    const void* buffer;
+    const char* buffer;
 public:
     quint32 magic_number;
     quint16 minor_version_number;

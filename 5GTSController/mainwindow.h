@@ -55,6 +55,8 @@ private slots:
     void on_btnLinkDevice_clicked();
     void on_device_connected();
     void on_device_disconnected();
+    void on_data_connected();
+    void on_data_disconnected();
     void on_device_response(QString response);
     void on_device_response_data(DFData response);
 

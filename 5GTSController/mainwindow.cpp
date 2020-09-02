@@ -34,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ThermoLevel->setFillBrush(QBrush(Qt::blue));
     SetAtennaInfo();
     this->isOpt=true;
+
+    ui->btnSendCmd->setDisabled(true);
+    ui->btnStop->setDisabled(true);
     //ui->txtDeviceCmd->setPlainText(QSysInfo::buildAbi());
 
     this->dfpans.push_back("12.5Hz");
@@ -83,20 +86,19 @@ void MainWindow::on_btnLinkDevice_clicked()
     QObject::connect(&gtsClient,SIGNAL(signal_device_connected()),this,SLOT(on_device_connected()));
     QObject::connect(&gtsClient,SIGNAL(signal_device_disconnected()),this,SLOT(on_device_disconnected()));
     QObject::connect(&gtsClient,SIGNAL(signal_device_response(QString)),this,SLOT(on_device_response(QString)));
+
+    QObject::connect(&dataManager,SIGNAL(signal_data_connected()),this,SLOT(on_data_connected()));
+    QObject::connect(&dataManager,SIGNAL(signal_data_disconnected()),this,SLOT(on_data_disconnected()));
     QObject::connect(&dataManager,SIGNAL(signal_received_data(DFData)),this,SLOT(on_device_response_data(DFData)));
     QObject::connect(&dataManager,&DataManager::signal_received_data,&rmtpserver,&RmtpServer::on_get_monitor_data);
 
     QObject::connect(&rmtpserver,SIGNAL(signal_FIXDF(shared_ptr<RmtpCmdFixDFParam>)),this,SLOT(on_rmtpserver_fixdf(shared_ptr<RmtpCmdFixDFParam>)));
     QObject::connect(&rmtpserver,SIGNAL(signal_STOP()),this,SLOT(on_rmtpserver_stop()));
 
+
     gtsClient.ConnectDevice(ip,port+8);
     dataManager.ConnectDevice(ip,port+10);
-}
 
-void MainWindow::on_device_connected()
-{
-    ui->txtDeviceResponse->appendPlainText("5GT Device connected...");
-    ui->btnLinkDevice->setEnabled(false);
 }
 
 void MainWindow::GetCmdTemplate(QString filename)
@@ -145,12 +147,35 @@ void MainWindow::GetCmdTemplate(QString filename)
     }
 }
 
-void MainWindow::on_device_disconnected()
+void MainWindow::on_device_connected()
 {
-    ui->txtDeviceResponse->appendPlainText("failed to connect the device ... \n");
-    ui->btnLinkDevice->setEnabled(true);
+    ui->txtDeviceResponse->appendHtml("<b style='color:#00f'>5GTS Device Connected...</b>");
+    ui->btnLinkDevice->setDisabled(true);
+    ui->btnSendCmd->setEnabled(true);
+    ui->btnStop->setEnabled(true);
 }
 
+void MainWindow::on_device_disconnected()
+{
+    ui->txtDeviceResponse->appendHtml("<b style='color:#f00'>5GTS Device Disconnected ... </b>\n");
+    ui->btnLinkDevice->setEnabled(true);
+    gtsClient.DisConnectDevice();
+    dataManager.DisConnectDevice();
+}
+
+void MainWindow::on_data_connected()
+{
+    ui->txtDeviceResponse->appendHtml("<b style='color:#00f'>5GTS Data Channel Connected...</b>");
+    ui->btnLinkDevice->setDisabled(true);
+}
+
+void MainWindow::on_data_disconnected()
+{
+    ui->txtDeviceResponse->appendHtml("<b style='color:#f00'>5GTS Data Channel Discconected... </b>\n");
+    ui->btnLinkDevice->setEnabled(true);
+    gtsClient.DisConnectDevice();
+    dataManager.DisConnectDevice();
+}
 void MainWindow::on_device_response(QString response)
 {
     ui->txtDeviceResponse->appendPlainText(response);
@@ -213,9 +238,9 @@ void MainWindow::on_btnRmtpListen_clicked()
 {
     qint32 port =ui->txtRmtpPort->text().toInt();
     QObject::connect(&rmtpserver,SIGNAL(signal_received_cmd(QString)),this,SLOT(on_rmtpserver_receivedcmd(QString)));
-    QString ip=ui->txtRmtpIP->text();
+    QString ip=ui->txtRmtpIP->text().trimmed();
     QString rs=this->rmtpserver.Start(ip,port);
-    ui->txtDeviceResponse->appendPlainText(rs);
+    ui->txtDeviceResponse->appendHtml(rs);
     ui->btnRmtpListen->setDisabled(true);
     ui->btnRmtpStop->setDisabled(false);
 }

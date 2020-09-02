@@ -1,5 +1,7 @@
 QT       += core gui sql
 QT += network
+CONFIG += qwt
+DEFINES += QT_DLL QWT_DLL
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -82,8 +84,7 @@ FORMS += \
     antennawindow.ui
 
 
+LIBS += -L"C:\Qt\Qt5.14.1\5.14.1\mingw73_64\lib" -lqwt
 
-unix:!macx: LIBS += -L$$PWD/../../../../../../usr/lib/ -lqwt
+INCLUDEPATH += C:\Qt\Qt5.14.1\5.14.1\mingw73_64\include\qwt
 
-INCLUDEPATH += $$PWD/../../../../../../usr/include/qwt
-DEPENDPATH += $$PWD/../../../../../../usr/include/qwt

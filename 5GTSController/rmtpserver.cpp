@@ -24,14 +24,15 @@ RmtpServer::RmtpServer(QObject *parent) : QObject(parent)
 QString RmtpServer::Start(QString ip,qint32 port)
 {
     QString rs="";
+
     connect(&tcpserver,SIGNAL(newConnection()),this,SLOT(on_newclient_connected()));
     if(tcpserver.listen(QHostAddress(ip),port))
     {
-        rs="RmtpServer Start Listening...";
+        rs="<b style='color:#00f'>RmtpServer Start Listening...</b>";
     }
     else
     {
-        rs="RmtpServer Listening failed...";
+        rs="<b style='color:#f00'>RmtpServer Listening failed...</b>";
     }
 
     return rs;
@@ -39,7 +40,8 @@ QString RmtpServer::Start(QString ip,qint32 port)
 
 void RmtpServer::Stop()
 {
-    tcpserver.close();
+    //tcpserver.close();
+    tcpserver.disconnect();
 }
 
 void RmtpServer::on_newclient_connected()

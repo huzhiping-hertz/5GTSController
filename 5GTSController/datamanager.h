@@ -23,6 +23,8 @@ public:
     void SetOptValue(OptObj opt);
 signals:
     void signal_received_data(DFData);
+    void signal_data_disconnected();
+    void signal_data_connected();
 public slots:
     void on_received_data();
 };
